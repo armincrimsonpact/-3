@@ -143,7 +143,7 @@ export default function ArtistLoginPage() {
                 </label>
               </div>
 
-              <Link href="/forgot-password" className="text-sm text-primary hover:text-primary/80 transition-colors">
+              <Link href="/forgot-password" className="text-sm text-purple-500 hover:text-purple-400 transition-colors">
                 Forgot password?
               </Link>
             </div>
@@ -151,7 +151,7 @@ export default function ArtistLoginPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-3 px-4 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary/80 text-black font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-cardBg disabled:opacity-70 transition-all duration-200 hover:shadow-glow-primary"
+              className="w-full py-3 px-4 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:ring-offset-2 focus:ring-offset-cardBg disabled:opacity-70 transition-all duration-200 hover:shadow-lg"
             >
               {isLoading ? "Signing in..." : "Sign in"}
             </button>
@@ -160,7 +160,7 @@ export default function ArtistLoginPage() {
           <div className="mt-8 text-center">
             <p className="text-textTertiary">
               Don't have an account?{" "}
-              <Link href="/register/artist" className="text-primary hover:text-primary/80 transition-colors">
+              <Link href="/register/artist" className="text-purple-500 hover:text-purple-400 transition-colors">
                 Sign up
               </Link>
             </p>

@@ -143,7 +143,7 @@ export default function StudioLoginPage() {
                 </label>
               </div>
 
-              <Link href="/forgot-password" className="text-sm text-primary hover:text-primary/80 transition-colors">
+              <Link href="/forgot-password" className="text-sm text-teal-500 hover:text-teal-400 transition-colors">
                 Forgot password?
               </Link>
             </div>
@@ -151,7 +151,7 @@ export default function StudioLoginPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-3 px-4 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary/80 text-black font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-cardBg disabled:opacity-70 transition-all duration-200 hover:shadow-glow-primary"
+              className="w-full py-3 px-4 bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:ring-offset-2 focus:ring-offset-cardBg disabled:opacity-70 transition-all duration-200 hover:shadow-lg"
             >
               {isLoading ? "Signing in..." : "Sign in"}
             </button>
@@ -160,8 +160,8 @@ export default function StudioLoginPage() {
           <div className="mt-8 text-center">
             <p className="text-textTertiary">
               Don't have a studio account?{" "}
-              <Link href="/register/studio" className="text-primary hover:text-primary/80 transition-colors">
-                Register your studio
+              <Link href="/register/studio" className="text-teal-500 hover:text-teal-400 transition-colors">
+                Sign up
               </Link>
             </p>
           </div>

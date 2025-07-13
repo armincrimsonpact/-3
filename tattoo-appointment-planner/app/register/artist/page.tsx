@@ -210,11 +210,11 @@ export default function ArtistRegisterPage() {
               />
               <label htmlFor="agreeToTerms" className="ml-2 block text-sm text-textTertiary">
                 I agree to the{" "}
-                <Link href="/terms" className="text-primary hover:text-primary/80 transition-colors">
+                <Link href="/terms" className="text-purple-500 hover:text-purple-400 transition-colors">
                   Terms and Conditions
                 </Link>{" "}
                 and{" "}
-                <Link href="/privacy" className="text-primary hover:text-primary/80 transition-colors">
+                <Link href="/privacy" className="text-purple-500 hover:text-purple-400 transition-colors">
                   Privacy Policy
                 </Link>
               </label>
@@ -223,7 +223,7 @@ export default function ArtistRegisterPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-3 px-4 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary/80 text-black font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-cardBg disabled:opacity-70 transition-all duration-200 hover:shadow-glow-primary"
+              className="w-full py-3 px-4 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:ring-offset-2 focus:ring-offset-cardBg disabled:opacity-70 transition-all duration-200 hover:shadow-lg"
             >
               {isLoading ? "Creating account..." : "Create account"}
             </button>
@@ -232,7 +232,7 @@ export default function ArtistRegisterPage() {
           <div className="mt-8 text-center">
             <p className="text-textTertiary">
               Already have an account?{" "}
-              <Link href="/login/artist" className="text-primary hover:text-primary/80 transition-colors">
+              <Link href="/login/artist" className="text-purple-500 hover:text-purple-400 transition-colors">
                 Sign in
               </Link>
             </p>

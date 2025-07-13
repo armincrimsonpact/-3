@@ -257,11 +257,11 @@ export default function AdminRegisterPage() {
               />
               <label htmlFor="agreeToTerms" className="ml-2 block text-sm text-gray-400">
                 I agree to the{" "}
-                <Link href="/terms" className="text-red-500 hover:text-red-400">
+                <Link href="/terms" className="text-red-500 hover:text-red-400 transition-colors">
                   Terms and Conditions
-                </Link>
-                ,{" "}
-                <Link href="/privacy" className="text-red-500 hover:text-red-400">
+                </Link>{" "}
+                and{" "}
+                <Link href="/privacy" className="text-red-500 hover:text-red-400 transition-colors">
                   Privacy Policy
                 </Link>
                 , and{" "}
@@ -274,16 +274,16 @@ export default function AdminRegisterPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-3 px-4 bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 text-white font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-70 transition-colors"
+              className="w-full py-3 px-4 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:ring-offset-2 focus:ring-offset-cardBg disabled:opacity-70 transition-all duration-200 hover:shadow-lg"
             >
-              {isLoading ? "Creating admin account..." : "Create admin account"}
+              {isLoading ? "Creating account..." : "Create account"}
             </button>
           </form>
 
           <div className="mt-8 text-center">
             <p className="text-gray-400">
               Already have admin access?{" "}
-              <Link href="/login/admin" className="text-red-500 hover:text-red-400">
+              <Link href="/login/admin" className="text-red-500 hover:text-red-400 transition-colors">
                 Sign in
               </Link>
             </p>

@@ -210,11 +210,11 @@ export default function ClientRegisterPage() {
               />
               <label htmlFor="agreeToTerms" className="ml-2 block text-sm text-textTertiary">
                 I agree to the{" "}
-                <Link href="/terms" className="text-primary hover:text-primary/80 transition-colors">
+                <Link href="/terms" className="text-blue-500 hover:text-blue-400 transition-colors">
                   Terms and Conditions
                 </Link>{" "}
                 and{" "}
-                <Link href="/privacy" className="text-primary hover:text-primary/80 transition-colors">
+                <Link href="/privacy" className="text-blue-500 hover:text-blue-400 transition-colors">
                   Privacy Policy
                 </Link>
               </label>
@@ -223,7 +223,7 @@ export default function ClientRegisterPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-3 px-4 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary/80 text-black font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-cardBg disabled:opacity-70 transition-all duration-200 hover:shadow-glow-primary"
+              className="w-full py-3 px-4 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:ring-offset-2 focus:ring-offset-cardBg disabled:opacity-70 transition-all duration-200 hover:shadow-lg"
             >
               {isLoading ? "Creating account..." : "Create account"}
             </button>
@@ -232,7 +232,7 @@ export default function ClientRegisterPage() {
           <div className="mt-8 text-center">
             <p className="text-textTertiary">
               Already have an account?{" "}
-              <Link href="/login/client" className="text-primary hover:text-primary/80 transition-colors">
+              <Link href="/login/client" className="text-blue-500 hover:text-blue-400 transition-colors">
                 Sign in
               </Link>
             </p>
