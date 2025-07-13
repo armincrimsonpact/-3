@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { ArrowLeft, Eye, EyeOff, Shield, AlertTriangle } from "lucide-react"
 import { motion } from "framer-motion"
-import { Button } from "@/components/ui/button"
 
 export default function AdminRegisterPage() {
   const router = useRouter()
@@ -272,14 +271,14 @@ export default function AdminRegisterPage() {
               </label>
             </div>
 
-            <Button
+            <button
               type="submit"
               disabled={isLoading}
-              className="w-full text-lg px-8 py-3 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:ring-offset-2 focus:ring-offset-cardBg disabled:opacity-70 transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5"
-              animation="ripple"
+              className="w-full text-lg px-8 py-3 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-medium rounded-lg border-2 border-red-500 hover:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:ring-offset-2 focus:ring-offset-cardBg disabled:opacity-70 transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 relative overflow-hidden group"
             >
-              {isLoading ? "Creating account..." : "Create account"}
-            </Button>
+              <span className="relative z-10">{isLoading ? "Creating account..." : "Create account"}</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-red-600 to-red-700 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
+            </button>
           </form>
 
           <div className="mt-8 text-center">
