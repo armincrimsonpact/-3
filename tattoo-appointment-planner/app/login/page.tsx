@@ -65,11 +65,7 @@ export default function LoginPage({ searchParams }: PageProps) {
 
   return (
     <div className="min-h-screen bg-black flex items-center justify-center p-4">
-      {/* Background effects */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -left-40 w-80 h-80 bg-teal-500/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute -bottom-40 -right-40 w-80 h-80 bg-teal-500/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
-      </div>
+      {/* Background effects - removed for pure black background */}
 
       <div className="relative z-10 w-full max-w-6xl">
         <ScrollReveal>
@@ -103,11 +99,11 @@ export default function LoginPage({ searchParams }: PageProps) {
                   whileTap={{ scale: 0.95 }}
                 >
                   <Card 
-                    className={`relative overflow-hidden bg-gray-900 border-gray-700/30 transition-all duration-300 cursor-pointer group ${
-                      userType.id === 'client' ? 'hover:border-blue-500/50' :
-                      userType.id === 'artist' ? 'hover:border-purple-500/50' :
-                      userType.id === 'studio' ? 'hover:border-teal-500/50' :
-                      'hover:border-red-500/50'
+                    className={`relative overflow-hidden transition-all duration-300 cursor-pointer group ${
+                      userType.id === 'client' ? 'bg-blue-500/20 hover:bg-blue-500/30 border-blue-500/50' :
+                      userType.id === 'artist' ? 'bg-purple-500/20 hover:bg-purple-500/30 border-purple-500/50' :
+                      userType.id === 'studio' ? 'bg-teal-500/20 hover:bg-teal-500/30 border-teal-500/50' :
+                      'bg-red-500/20 hover:bg-red-500/30 border-red-500/50'
                     }`}
                     onClick={() => handleUserTypeSelect(userType.route)}
                   >

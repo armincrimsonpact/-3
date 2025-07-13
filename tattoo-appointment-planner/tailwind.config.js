@@ -45,7 +45,7 @@ module.exports = {
         },
         // Custom InkCircle colors
         bg: "#000000",
-        cardBg: "#111827",
+        cardBg: "#000000",
         textPrimary: "#ffffff",
         textSecondary: "#e5e2dc",
         textTertiary: "#aab5af",
