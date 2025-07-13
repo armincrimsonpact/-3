@@ -10,15 +10,24 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    domains: [
-      'supabase.co',
-      '*.supabase.co',
-      'goditiaydqrsodvnbbrx.supabase.co',
-      'maps.googleapis.com',
-      'lh3.googleusercontent.com'
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '*.supabase.co',
+      },
+      {
+        protocol: 'https',
+        hostname: 'supabase.co',
+      },
+      {
+        protocol: 'https',
+        hostname: 'maps.googleapis.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+      }
     ],
-    formats: ['image/avif', 'image/webp'],
-    minimumCacheTTL: 60,
   },
   // Production optimizations
   compress: true,
@@ -119,15 +128,6 @@ const nextConfig = {
   // Environment variables validation
   env: {
     CUSTOM_KEY: process.env.CUSTOM_KEY,
-  },
-  
-  // Output configuration for standalone deployment
-  output: 'standalone',
-  
-  // Production build optimizations
-  generateBuildId: async () => {
-    // Use git commit hash or timestamp for build ID
-    return process.env.VERCEL_GIT_COMMIT_SHA || `build-${Date.now()}`;
   },
 }
 

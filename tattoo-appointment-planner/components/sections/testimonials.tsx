@@ -59,10 +59,10 @@ export function Testimonials() {
   }
 
   return (
-    <section className="bg-teal-500 py-20 relative overflow-hidden">
+    <section className="bg-black py-20 relative overflow-hidden">
       {/* Background elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-black/20 to-transparent"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-teal-900/20 to-transparent"></div>
         <motion.div
           className="absolute bottom-0 right-0 w-96 h-96 bg-black/10 rounded-full filter blur-3xl"
           animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.3, 0.2] }}
@@ -77,10 +77,10 @@ export function Testimonials() {
           transition={{ duration: 0.6 }}
           viewport={{ once: true, margin: "-100px" }}
         >
-          <AnimatedText text="What Our Users Say" className="text-4xl font-bold text-black text-center mb-4" />
+          <AnimatedText text="What Our Users Say" className="text-4xl font-bold text-white text-center mb-4" />
 
           <motion.div
-            className="w-20 h-1 bg-black mx-auto mb-16"
+            className="w-20 h-1 bg-teal-500 mx-auto mb-16"
             initial={{ width: 0 }}
             whileInView={{ width: 80 }}
             transition={{ duration: 0.8, delay: 0.3 }}

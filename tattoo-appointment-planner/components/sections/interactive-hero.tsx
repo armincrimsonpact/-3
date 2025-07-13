@@ -111,14 +111,6 @@ export function InteractiveHero() {
             >
               <a href="/artists">Search Artists</a>
             </Button>
-
-            <Button
-              asChild
-              className="text-lg px-8 py-3 bg-teal-500 text-black border border-teal-500 hover:bg-teal-600 hover:border-teal-600"
-              animation="ripple"
-            >
-              <a href="/login">Login</a>
-            </Button>
           </motion.div>
         </motion.div>
 

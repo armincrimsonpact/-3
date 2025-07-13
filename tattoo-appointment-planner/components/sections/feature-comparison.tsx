@@ -17,11 +17,15 @@ export function FeatureComparison() {
   ]
 
   return (
-    <section className="bg-teal-500 py-20">
+    <section className="bg-black py-20 relative overflow-hidden">
+      {/* Background elements */}
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-teal-900/20 to-transparent"></div>
+      </div>
       <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-4xl font-bold text-black text-center mb-16">InkCircle vs. Traditional Booking</h2>
+        <h2 className="text-4xl font-bold text-white text-center mb-16 relative z-10">InkCircle vs. Traditional Booking</h2>
         
-        <div className="bg-black border border-teal-500/20 rounded-lg overflow-hidden">
+        <div className="bg-black border border-teal-500/20 rounded-lg overflow-hidden relative z-10">
           <div className="p-6 border-b border-primary/20">
             <h3 className="text-xl font-bold text-textSecondary">All Features Compared</h3>
           </div>

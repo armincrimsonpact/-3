@@ -29,10 +29,10 @@ export function WhyInkCircle() {
   ]
 
   return (
-    <section className="bg-teal-500 py-20 relative overflow-hidden">
+    <section className="bg-black py-20 relative overflow-hidden">
       {/* Background elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-black/20 to-transparent"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-teal-900/20 to-transparent"></div>
         <motion.div
           className="absolute -bottom-32 -right-32 w-64 h-64 bg-black/10 rounded-full filter blur-3xl"
           animate={{ scale: [1, 1.2, 1], opacity: [0.2, 0.3, 0.2] }}
@@ -52,10 +52,20 @@ export function WhyInkCircle() {
           transition={{ duration: 0.6 }}
           viewport={{ once: true, margin: "-100px" }}
         >
-          <AnimatedText text="Why Choose InkCircle?" className="text-4xl font-bold text-black text-center mb-4" />
+          <AnimatedText text="Why Choose InkCircle?" className="text-4xl font-bold text-white text-center mb-4" />
+
+          <motion.p
+            className="text-gray-400 text-center mb-12 max-w-2xl mx-auto"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            viewport={{ once: true }}
+          >
+            Discover what makes InkCircle the preferred choice for tattoo artists and clients worldwide.
+          </motion.p>
 
           <motion.div
-            className="w-20 h-1 bg-black mx-auto mb-16"
+            className="w-20 h-1 bg-teal-500 mx-auto mb-16"
             initial={{ width: 0 }}
             whileInView={{ width: 80 }}
             transition={{ duration: 0.8, delay: 0.3 }}

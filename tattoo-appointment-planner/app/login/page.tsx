@@ -64,11 +64,11 @@ export default function LoginPage({ searchParams }: PageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-bg flex items-center justify-center p-4">
+    <div className="min-h-screen bg-black flex items-center justify-center p-4">
       {/* Background effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -left-40 w-80 h-80 bg-primary/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute -bottom-40 -right-40 w-80 h-80 bg-ultra/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+        <div className="absolute -top-40 -left-40 w-80 h-80 bg-teal-500/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute -bottom-40 -right-40 w-80 h-80 bg-teal-500/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
       </div>
 
       <div className="relative z-10 w-full max-w-6xl">
@@ -79,10 +79,10 @@ export default function LoginPage({ searchParams }: PageProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-primary to-ultra bg-clip-text text-transparent mb-4">
+              <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-teal-500 to-teal-300 bg-clip-text text-transparent mb-4">
                 Welcome Back
               </h1>
-              <p className="text-xl text-textTertiary max-w-2xl mx-auto">
+              <p className="text-xl text-gray-400 max-w-2xl mx-auto">
                 Sign in to your account to access your dashboard and manage your tattoo journey
               </p>
             </motion.div>
@@ -103,17 +103,17 @@ export default function LoginPage({ searchParams }: PageProps) {
                   whileTap={{ scale: 0.95 }}
                 >
                   <Card 
-                    className={`relative overflow-hidden bg-cardBg border-textTertiary/30 hover:border-primary/50 transition-all duration-300 cursor-pointer group`}
+                    className={`relative overflow-hidden bg-gray-900 border-gray-700/30 hover:border-teal-500/50 transition-all duration-300 cursor-pointer group`}
                     onClick={() => handleUserTypeSelect(userType.route)}
                   >
                     <CardHeader className="pb-4">
                       <div className={`w-12 h-12 rounded-lg ${userType.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
                         <Icon className={`w-6 h-6 ${userType.textColor}`} />
                       </div>
-                      <CardTitle className="text-xl text-textSecondary group-hover:text-primary transition-colors">
+                      <CardTitle className="text-xl text-white group-hover:text-teal-500 transition-colors">
                         {userType.title}
                       </CardTitle>
-                      <p className="text-textTertiary group-hover:text-textSecondary transition-colors">
+                      <p className="text-gray-400 group-hover:text-gray-300 transition-colors">
                         {userType.description}
                       </p>
                     </CardHeader>
@@ -126,13 +126,13 @@ export default function LoginPage({ searchParams }: PageProps) {
 
         <ScrollReveal delay={0.4}>
           <div className="mt-12 text-center">
-            <p className="text-textTertiary mb-4">
+            <p className="text-gray-400 mb-4">
               Don't have an account?{" "}
-              <Link href="/register" className="text-primary hover:text-primary/80 transition-colors">
+              <Link href="/register" className="text-teal-500 hover:text-teal-400 transition-colors">
                 Sign up
               </Link>
             </p>
-            <Link href="/home" className="text-textTertiary hover:text-textSecondary transition-colors">
+            <Link href="/home" className="text-gray-400 hover:text-gray-300 transition-colors">
               ← Back to Home
             </Link>
           </div>
