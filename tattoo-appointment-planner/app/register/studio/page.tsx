@@ -102,11 +102,7 @@ export default function StudioRegisterPage() {
 
   return (
     <div className="min-h-screen bg-bg">
-      {/* Background effects */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-primary/5 blur-3xl" />
-        <div className="absolute bottom-1/3 right-1/3 w-24 h-24 rounded-full bg-primary/3 blur-2xl" />
-      </div>
+      {/* Background effects removed for pure black background */}
 
       {/* Header */}
       <header className="relative z-10 p-6">

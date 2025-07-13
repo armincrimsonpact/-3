@@ -23,14 +23,14 @@ export function FeatureComparison() {
     <section className="bg-black py-20 relative overflow-hidden">
       {/* Background elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-teal-900/10 to-transparent"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-transparent"></div>
         <motion.div
-          className="absolute top-1/4 right-1/4 w-64 h-64 bg-teal-500/5 rounded-full filter blur-3xl"
+          className="absolute top-1/4 right-1/4 w-64 h-64 bg-transparent rounded-full filter blur-3xl"
           animate={{ scale: [1, 1.2, 1], opacity: [0.2, 0.3, 0.2] }}
           transition={{ duration: 8, repeat: Number.POSITIVE_INFINITY }}
         />
         <motion.div
-          className="absolute bottom-1/3 left-1/4 w-48 h-48 bg-teal-500/5 rounded-full filter blur-3xl"
+          className="absolute bottom-1/3 left-1/4 w-48 h-48 bg-transparent rounded-full filter blur-3xl"
           animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.2, 0.3] }}
           transition={{ duration: 10, repeat: Number.POSITIVE_INFINITY }}
         />

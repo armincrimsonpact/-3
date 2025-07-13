@@ -32,7 +32,7 @@ export function WhyInkCircle() {
     <section className="bg-black py-20 relative overflow-hidden">
       {/* Background elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-teal-900/10 to-transparent"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-transparent"></div>
         <motion.div
           className="absolute -bottom-32 -right-32 w-64 h-64 bg-black/10 rounded-full filter blur-3xl"
           animate={{ scale: [1, 1.2, 1], opacity: [0.2, 0.3, 0.2] }}
@@ -65,7 +65,7 @@ export function WhyInkCircle() {
           </motion.p>
 
           <motion.div
-            className="w-20 h-1 bg-teal-500 mx-auto mb-16"
+            className="w-20 h-1 bg-gray-600 mx-auto mb-16"
             initial={{ width: 0 }}
             whileInView={{ width: 80 }}
             transition={{ duration: 0.8, delay: 0.3 }}
@@ -85,23 +85,23 @@ export function WhyInkCircle() {
               onMouseEnter={() => setHoveredCard(index)}
               onMouseLeave={() => setHoveredCard(null)}
             >
-              <div className="p-6 h-full bg-black border border-teal-500/20 rounded-lg hover:border-teal-500 transition-colors duration-300 flex flex-col items-center">
+              <div className="p-6 h-full bg-black border border-gray-600/20 rounded-lg hover:border-gray-500 transition-colors duration-300 flex flex-col items-center">
                 <motion.div
-                  className="bg-teal-500 p-4 rounded-full mb-6 relative overflow-hidden"
+                  className="bg-gray-600 p-4 rounded-full mb-6 relative overflow-hidden"
                   whileHover={{ scale: 1.1 }}
                   transition={{ type: "spring", stiffness: 400, damping: 10 }}
                 >
                   {/* Animated background for icon */}
                   <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-teal-500 to-teal-600"
+                    className="absolute inset-0 bg-gradient-to-r from-gray-600 to-gray-700"
                     animate={{
                       background:
                         hoveredCard === index
                           ? [
-                              "linear-gradient(to right, #00C2B0, #00a89a)",
-                              "linear-gradient(to right, #00a89a, #00C2B0)",
+                              "linear-gradient(to right, #6b7280, #4b5563)",
+                              "linear-gradient(to right, #4b5563, #6b7280)",
                             ]
-                          : "linear-gradient(to right, #00C2B0, #00a89a)",
+                          : "linear-gradient(to right, #6b7280, #4b5563)",
                     }}
                     transition={{ duration: 2, repeat: hoveredCard === index ? Number.POSITIVE_INFINITY : 0 }}
                   />

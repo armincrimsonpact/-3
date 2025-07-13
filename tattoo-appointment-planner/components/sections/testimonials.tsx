@@ -62,7 +62,7 @@ export function Testimonials() {
     <section className="bg-black py-20 relative overflow-hidden">
       {/* Background elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-teal-900/10 to-transparent"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-transparent"></div>
         <motion.div
           className="absolute bottom-0 right-0 w-96 h-96 bg-black/10 rounded-full filter blur-3xl"
           animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.3, 0.2] }}
@@ -80,7 +80,7 @@ export function Testimonials() {
           <AnimatedText text="What Our Users Say" className="text-4xl font-bold text-white text-center mb-4" />
 
           <motion.div
-            className="w-20 h-1 bg-teal-500 mx-auto mb-16"
+                            className="w-20 h-1 bg-gray-600 mx-auto mb-16"
             initial={{ width: 0 }}
             whileInView={{ width: 80 }}
             transition={{ duration: 0.8, delay: 0.3 }}
@@ -143,7 +143,7 @@ export function Testimonials() {
           {testimonials.map((_, index) => (
             <motion.button
               key={index}
-              className={`w-3 h-3 rounded-full ${index === activeIndex ? "bg-teal-500" : "bg-gray-700"}`}
+                              className={`w-3 h-3 rounded-full ${index === activeIndex ? "bg-gray-400" : "bg-gray-700"}`}
               whileHover={{ scale: 1.2 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => goToTestimonial(index)}

@@ -75,9 +75,9 @@ export function Pricing() {
     <section className="bg-black py-20 relative overflow-hidden">
       {/* Background elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-teal-500/10 to-transparent"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-transparent"></div>
         <motion.div
-          className="absolute top-1/3 right-1/4 w-64 h-64 bg-teal-500/5 rounded-full filter blur-3xl"
+          className="absolute top-1/3 right-1/4 w-64 h-64 bg-transparent rounded-full filter blur-3xl"
           animate={{ scale: [1, 1.2, 1], opacity: [0.2, 0.3, 0.2] }}
           transition={{ duration: 8, repeat: Number.POSITIVE_INFINITY }}
         />
@@ -111,9 +111,9 @@ export function Pricing() {
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
         >
-          <div className="relative bg-black border border-teal-500/20 inline-flex rounded-md p-1">
+          <div className="relative bg-black border border-gray-600/20 inline-flex rounded-md p-1">
             <motion.div
-              className="absolute top-1 bottom-1 bg-teal-500/10 rounded-md"
+              className="absolute top-1 bottom-1 bg-gray-600/10 rounded-md"
               initial={false}
               animate={{
                 x: isYearly ? "calc(100% - 2px)" : "1px",
