@@ -103,14 +103,24 @@ export default function LoginPage({ searchParams }: PageProps) {
                   whileTap={{ scale: 0.95 }}
                 >
                   <Card 
-                    className={`relative overflow-hidden bg-gray-900 border-gray-700/30 hover:border-teal-500/50 transition-all duration-300 cursor-pointer group`}
+                    className={`relative overflow-hidden bg-gray-900 border-gray-700/30 transition-all duration-300 cursor-pointer group ${
+                      userType.id === 'client' ? 'hover:border-blue-500/50' :
+                      userType.id === 'artist' ? 'hover:border-purple-500/50' :
+                      userType.id === 'studio' ? 'hover:border-teal-500/50' :
+                      'hover:border-red-500/50'
+                    }`}
                     onClick={() => handleUserTypeSelect(userType.route)}
                   >
                     <CardHeader className="pb-4">
                       <div className={`w-12 h-12 rounded-lg ${userType.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
                         <Icon className={`w-6 h-6 ${userType.textColor}`} />
                       </div>
-                      <CardTitle className="text-xl text-white group-hover:text-teal-500 transition-colors">
+                      <CardTitle className={`text-xl text-white transition-colors ${
+                        userType.id === 'client' ? 'group-hover:text-blue-500' :
+                        userType.id === 'artist' ? 'group-hover:text-purple-500' :
+                        userType.id === 'studio' ? 'group-hover:text-teal-500' :
+                        'group-hover:text-red-500'
+                      }`}>
                         {userType.title}
                       </CardTitle>
                       <p className="text-gray-400 group-hover:text-gray-300 transition-colors">
