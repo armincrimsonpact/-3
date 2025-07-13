@@ -109,7 +109,7 @@ export function InteractiveHero() {
               className="text-lg px-8 py-3 bg-transparent border border-white text-white hover:bg-white hover:text-black hover:border-white"
               animation="ripple"
             >
-              <a href="/artists">Search Artists</a>
+              <a href="/register">Join InkCircle</a>
             </Button>
           </motion.div>
         </motion.div>

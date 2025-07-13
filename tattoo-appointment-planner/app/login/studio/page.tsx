@@ -7,6 +7,7 @@ import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { ArrowLeft, Eye, EyeOff, Building } from "lucide-react"
 import { motion } from "framer-motion"
+import { Button } from "@/components/ui/button"
 
 export default function StudioLoginPage() {
   const router = useRouter()
@@ -148,13 +149,14 @@ export default function StudioLoginPage() {
               </Link>
             </div>
 
-            <button
+            <Button
               type="submit"
               disabled={isLoading}
-              className="w-full py-3 px-4 bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:ring-offset-2 focus:ring-offset-cardBg disabled:opacity-70 transition-all duration-200 hover:shadow-lg"
+              className="w-full text-lg px-8 py-3 bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:ring-offset-2 focus:ring-offset-cardBg disabled:opacity-70 transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5"
+              animation="ripple"
             >
               {isLoading ? "Signing in..." : "Sign in"}
-            </button>
+            </Button>
           </form>
 
           <div className="mt-8 text-center">

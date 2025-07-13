@@ -89,32 +89,30 @@ export function Testimonials() {
         </motion.div>
 
         <div className="relative max-w-4xl mx-auto">
-          <div className="flex overflow-hidden">
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={index}
-                className={`flex-shrink-0 w-full ${index === activeIndex ? "block" : "hidden"}`}
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: index === activeIndex ? 1 : 0, x: index === activeIndex ? 0 : 50 }}
-                transition={{ duration: 0.5 }}
-              >
-                <div className="bg-black border border-teal-500/20 rounded-lg p-6 text-center">
-                  <p className="text-gray-300 text-lg mb-6 italic">"{testimonial.content}"</p>
-                  <div className="flex items-center justify-center">
-                    <img
-                      src={testimonial.avatar}
-                      alt={testimonial.name}
-                      className="w-12 h-12 rounded-full mr-4 object-cover"
-                    />
-                    <div>
-                      <p className="font-semibold text-white">{testimonial.name}</p>
-                      <p className="text-gray-400 text-sm">{testimonial.role}</p>
-                    </div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeIndex}
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -50 }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="bg-black border border-teal-500/20 rounded-lg p-6 text-center">
+                <p className="text-gray-300 text-lg mb-6 italic">"{testimonials[activeIndex].content}"</p>
+                <div className="flex items-center justify-center">
+                  <img
+                    src={testimonials[activeIndex].avatar}
+                    alt={testimonials[activeIndex].name}
+                    className="w-12 h-12 rounded-full mr-4 object-cover"
+                  />
+                  <div>
+                    <p className="font-semibold text-white">{testimonials[activeIndex].name}</p>
+                    <p className="text-gray-400 text-sm">{testimonials[activeIndex].role}</p>
                   </div>
                 </div>
-              </motion.div>
-            ))}
-          </div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
 
           {/* Navigation arrows */}
           <div className="absolute top-1/2 left-0 right-0 transform -translate-y-1/2 flex justify-between pointer-events-none">

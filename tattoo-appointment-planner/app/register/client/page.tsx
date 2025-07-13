@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { ArrowLeft, Eye, EyeOff } from "lucide-react"
 import { motion } from "framer-motion"
+import { Button } from "@/components/ui/button"
 
 export default function ClientRegisterPage() {
   const router = useRouter()
@@ -220,13 +221,14 @@ export default function ClientRegisterPage() {
               </label>
             </div>
 
-            <button
+            <Button
               type="submit"
               disabled={isLoading}
-              className="w-full py-3 px-4 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:ring-offset-2 focus:ring-offset-cardBg disabled:opacity-70 transition-all duration-200 hover:shadow-lg"
+              className="w-full text-lg px-8 py-3 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:ring-offset-2 focus:ring-offset-cardBg disabled:opacity-70 transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5"
+              animation="ripple"
             >
               {isLoading ? "Creating account..." : "Create account"}
-            </button>
+            </Button>
           </form>
 
           <div className="mt-8 text-center">
