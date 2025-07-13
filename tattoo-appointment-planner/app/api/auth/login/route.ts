@@ -23,6 +23,18 @@ export async function POST(request: Request) {
     })
 
     if (authError) {
+      console.error('Login auth error:', authError)
+      
+      // Check if it's an email verification error
+      if (authError.message.includes('email_not_confirmed') || 
+          authError.message.includes('Email not confirmed') ||
+          authError.message.includes('confirm')) {
+        return NextResponse.json(
+          { error: 'Please verify your email address before logging in. Check your email for the verification link.' },
+          { status: 403 }
+        )
+      }
+      
       return NextResponse.json(
         { error: 'Invalid credentials' },
         { status: 401 }
@@ -30,6 +42,7 @@ export async function POST(request: Request) {
     }
 
     if (!authData.user) {
+      console.error('No user returned from auth')
       return NextResponse.json(
         { error: 'Login failed' },
         { status: 500 }
@@ -44,6 +57,7 @@ export async function POST(request: Request) {
     })
 
     if (!userProfile) {
+      console.error('User profile not found for auth ID:', authData.user.id)
       return NextResponse.json(
         { error: 'User profile not found' },
         { status: 404 }
@@ -76,7 +90,10 @@ export async function POST(request: Request) {
         break
     }
 
-    return NextResponse.json({
+    console.log('Login successful for user:', userProfile.email, 'Role:', userProfile.role)
+
+    // Create the response
+    const response = NextResponse.json({
       message: 'Login successful',
       user: {
         id: userProfile.id,
@@ -88,6 +105,8 @@ export async function POST(request: Request) {
         roleData
       }
     })
+
+    return response
   } catch (error) {
     console.error('Login error:', error)
     

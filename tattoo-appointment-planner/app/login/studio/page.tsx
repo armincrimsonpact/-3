@@ -7,6 +7,7 @@ import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { ArrowLeft, Eye, EyeOff, Building } from "lucide-react"
 import { motion } from "framer-motion"
+import { createClient } from "@/lib/supabase/client"
 
 export default function StudioLoginPage() {
   const router = useRouter()
@@ -25,6 +26,24 @@ export default function StudioLoginPage() {
     setError("")
 
     try {
+      // Create Supabase client
+      const supabase = createClient()
+
+      // Sign in with Supabase Auth (this will create session cookies)
+      const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
+        email,
+        password
+      })
+
+      if (authError) {
+        throw new Error(authError.message)
+      }
+
+      if (!authData.user) {
+        throw new Error("Login failed")
+      }
+
+      // Verify user profile and role from the API
       const response = await fetch("/api/auth/login", {
         method: "POST",
         headers: {
@@ -41,6 +60,8 @@ export default function StudioLoginPage() {
 
       // Check if user role is STUDIO
       if (data.user.role !== "STUDIO") {
+        // Sign out if wrong role
+        await supabase.auth.signOut()
         throw new Error("Invalid account type. Please use the correct login page.")
       }
 

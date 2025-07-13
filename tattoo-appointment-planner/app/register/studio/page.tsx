@@ -94,8 +94,14 @@ export default function StudioRegisterPage() {
       // Note: Studio details (name, address, etc.) will be saved in the database
       // The API handles creating the studio profile with default values
 
-      // Show success message and redirect to login
-      router.push("/login/studio?registered=true")
+      // Check if email verification is required
+      if (data.emailVerificationRequired) {
+        // Redirect to verification page
+        router.push("/verify-email")
+      } else {
+        // If no verification needed, redirect to login
+        router.push("/login/studio?registered=true")
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred")
       setIsLoading(false)

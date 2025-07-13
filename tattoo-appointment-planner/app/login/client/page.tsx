@@ -26,6 +26,24 @@ export default function ClientLoginPage() {
     setError("")
 
     try {
+      // Create Supabase client
+      const supabase = createClient()
+
+      // Sign in with Supabase Auth (this will create session cookies)
+      const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
+        email,
+        password
+      })
+
+      if (authError) {
+        throw new Error(authError.message)
+      }
+
+      if (!authData.user) {
+        throw new Error("Login failed")
+      }
+
+      // Verify user profile and role from the API
       const response = await fetch("/api/auth/login", {
         method: "POST",
         headers: {
@@ -37,11 +55,21 @@ export default function ClientLoginPage() {
       const data = await response.json()
 
       if (!response.ok) {
-        throw new Error(data.error || "Login failed")
+        if (data.error && data.error.includes('email_not_confirmed')) {
+          setError("Please verify your email address before logging in. Check your email for the verification link.")
+        } else if (data.error && data.error.includes('Email not confirmed')) {
+          setError("Please verify your email address before logging in. Check your email for the verification link.")
+        } else {
+          setError(data.error || "Login failed")
+        }
+        setIsLoading(false)
+        return
       }
 
       // Check if user role is CLIENT
       if (data.user.role !== "CLIENT") {
+        // Sign out if wrong role
+        await supabase.auth.signOut()
         throw new Error("Invalid account type. Please use the correct login page.")
       }
 

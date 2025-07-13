@@ -7,6 +7,7 @@ import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { ArrowLeft, Eye, EyeOff, Shield } from "lucide-react"
 import { motion } from "framer-motion"
+import { createClient } from "@/lib/supabase/client"
 
 export default function AdminLoginPage() {
   const router = useRouter()
@@ -27,6 +28,24 @@ export default function AdminLoginPage() {
     setError("")
 
     try {
+      // Create Supabase client
+      const supabase = createClient()
+
+      // Sign in with Supabase Auth (this will create session cookies)
+      const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
+        email,
+        password
+      })
+
+      if (authError) {
+        throw new Error(authError.message)
+      }
+
+      if (!authData.user) {
+        throw new Error("Login failed")
+      }
+
+      // Verify user profile and role from the API
       const response = await fetch("/api/auth/login", {
         method: "POST",
         headers: {
@@ -53,6 +72,8 @@ export default function AdminLoginPage() {
 
       // Check if user role is ADMIN
       if (data.user.role !== "ADMIN") {
+        // Sign out if wrong role
+        await supabase.auth.signOut()
         throw new Error("Unauthorized access. Admin privileges required.")
       }
 

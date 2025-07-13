@@ -78,8 +78,14 @@ export default function ClientRegisterPage() {
         throw new Error(data.error || "Registration failed")
       }
 
-      // Show success message and redirect to login
-      router.push("/login/client?registered=true")
+      // Check if email verification is required
+      if (data.emailVerificationRequired) {
+        // Redirect to verification page
+        router.push("/verify-email")
+      } else {
+        // If no verification needed, redirect to login
+        router.push("/login/client?registered=true")
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred")
       setIsLoading(false)

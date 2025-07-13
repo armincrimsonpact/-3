@@ -179,74 +179,64 @@ export async function POST(request: Request) {
       // Don't fail registration if email fails
     }
 
-    console.log('=== Registration completed successfully ===')
+    // Success response
     return NextResponse.json({
-      message: 'Registration successful. Please check your email to verify your account.',
+      message: 'User registered successfully',
       user: {
         id: userProfile.id,
         email: userProfile.email,
         name: userProfile.name,
-        role: userProfile.role
-      }
-    })
+        role: userProfile.role,
+        emailVerified: authData.user.email_confirmed_at !== null
+      },
+      // Important: Tell frontend about email verification requirement
+      emailVerificationRequired: authData.user.email_confirmed_at === null,
+      redirectTo: authData.user.email_confirmed_at ? '/login' : '/verify-email'
+    }, { status: 201 })
+
   } catch (error) {
-    console.error('=== Registration error ===')
-    console.error('Error:', error)
-    console.error('Error type:', typeof error)
-    console.error('Error constructor:', error?.constructor?.name)
+    console.error('=== Registration Error ===')
+    console.error('Error type:', error?.constructor?.name)
+    console.error('Error message:', error instanceof Error ? error.message : String(error))
+    console.error('Error details:', error)
     
+    // Check if it's a validation error
     if (error instanceof z.ZodError) {
-      console.error('Zod validation error:', error.issues)
-      return NextResponse.json(
-        { error: 'Invalid input', details: error.issues },
-        { status: 400 }
-      )
+      return NextResponse.json({
+        error: 'Invalid input data',
+        details: error.issues
+      }, { status: 400 })
     }
-
-    // Handle specific Prisma errors
-    if (error instanceof Error && 'code' in error) {
-      const prismaError = error as any
-      console.error('Prisma error detected:', {
-        code: prismaError.code,
-        message: prismaError.message,
-        meta: prismaError.meta
-      })
-      
-      if (prismaError.code === 'P2025') {
-        return NextResponse.json(
-          { error: 'User profile creation failed. Please try again.' },
-          { status: 500 }
-        )
-      }
-      
-      if (prismaError.code === 'P2002') {
-        return NextResponse.json(
-          { error: 'User already exists with this email.' },
-          { status: 400 }
-        )
+    
+    // Check if it's a Supabase error
+    if (error && typeof error === 'object' && 'code' in error) {
+      const errorCode = (error as any).code
+      switch (errorCode) {
+        case 'user_already_exists':
+          return NextResponse.json({
+            error: 'User already exists with this email'
+          }, { status: 409 })
+        case 'email_not_confirmed':
+          return NextResponse.json({
+            error: 'Email not confirmed. Please check your email and click the verification link.'
+          }, { status: 403 })
+        default:
+          return NextResponse.json({
+            error: 'Authentication service error. Please try again.'
+          }, { status: 500 })
       }
     }
-
-    // Handle network/connection errors
-    if (error instanceof Error) {
-      console.error('Standard error:', {
-        name: error.name,
-        message: error.message,
-        stack: error.stack
-      })
-      
-      if (error.message.includes('connect') || error.message.includes('network')) {
-        return NextResponse.json(
-          { error: 'Database connection failed. Please try again later.' },
-          { status: 503 }
-        )
-      }
+    
+    // Database error
+    if (error && typeof error === 'object' && 'code' in error && (error as any).code === 'P2002') {
+      return NextResponse.json({
+        error: 'User already exists with this email'
+      }, { status: 409 })
     }
-
-    console.error('Unhandled error, returning generic response')
-    return NextResponse.json(
-      { error: 'Internal server error', details: 'Check server logs for more information' },
-      { status: 500 }
-    )
+    
+    // Generic error
+    return NextResponse.json({
+      error: 'Internal server error. Please try again later.'
+    }, { status: 500 })
   }
 }
