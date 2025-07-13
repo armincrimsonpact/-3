@@ -62,7 +62,7 @@ export function Testimonials() {
     <section className="bg-black py-20 relative overflow-hidden">
       {/* Background elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-teal-900/20 to-transparent"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-teal-900/10 to-transparent"></div>
         <motion.div
           className="absolute bottom-0 right-0 w-96 h-96 bg-black/10 rounded-full filter blur-3xl"
           animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.3, 0.2] }}
