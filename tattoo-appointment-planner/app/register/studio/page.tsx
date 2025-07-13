@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { ArrowLeft, Eye, EyeOff, Building } from "lucide-react"
 import { motion } from "framer-motion"
+import { validatePassword } from "@/lib/validation"
 
 export default function StudioRegisterPage() {
   const router = useRouter()
@@ -49,8 +50,9 @@ export default function StudioRegisterPage() {
     }
 
     // Validate password strength
-    if (formData.password.length < 8) {
-      setError("Password must be at least 8 characters long")
+    const passwordValidation = validatePassword(formData.password)
+    if (!passwordValidation.isValid) {
+      setError(passwordValidation.errors[0])
       setIsLoading(false)
       return
     }
@@ -190,6 +192,31 @@ export default function StudioRegisterPage() {
                   className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-300"
                 >
                   {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-400 mb-1">
+                Confirm Password
+              </label>
+              <div className="relative">
+                <input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type={showConfirmPassword ? "text" : "password"}
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 bg-black border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-500/50 text-white transition-all pr-10"
+                  placeholder="Confirm your password"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-300"
+                >
+                  {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                 </button>
               </div>
             </div>
