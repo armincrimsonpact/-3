@@ -31,20 +31,20 @@
 
 html,
 body {
-  background-color: #000000;
+  background-color: #000000 !important;
   color: #ffffff;
 }
 
 body {
   color: hsl(var(--foreground));
-  background: hsl(var(--background));
+  background: hsl(var(--background)) !important;
   font-feature-settings: "rlig" 1, "calt" 1;
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
-    background-color: #000000;
+    background-color: #000000 !important;
   }
 
   h1,
