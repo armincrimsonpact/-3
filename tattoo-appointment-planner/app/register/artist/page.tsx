@@ -178,6 +178,9 @@ export default function ArtistRegisterPage() {
                   {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                 </button>
               </div>
+              <p className="text-xs text-gray-500 mt-1">
+                Must contain: 8+ characters, uppercase, lowercase, number, and special character (!@#$%^&*)
+              </p>
             </div>
 
             <div>

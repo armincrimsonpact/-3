@@ -218,7 +218,9 @@ export default function AdminRegisterPage() {
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
               </div>
-              <p className="mt-1 text-xs text-gray-500">Must be at least 12 characters with mixed case, numbers, and symbols</p>
+              <p className="text-xs text-gray-500 mt-1">
+                Admin passwords require: 12+ characters, uppercase, lowercase, number, and special character (!@#$%^&*)
+              </p>
             </div>
 
             <div>
