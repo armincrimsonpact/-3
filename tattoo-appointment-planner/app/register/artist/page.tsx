@@ -206,7 +206,7 @@ export default function ArtistRegisterPage() {
                 type="checkbox"
                 checked={formData.agreeToTerms}
                 onChange={handleChange}
-                className="h-4 w-4 bg-bg border-textTertiary/30 rounded focus:ring-primary/50 mt-0.5"
+                className="h-4 w-4 bg-bg border-textTertiary/30 rounded checkbox-artist mt-0.5"
               />
               <label htmlFor="agreeToTerms" className="ml-2 block text-sm text-textTertiary">
                 I agree to the{" "}

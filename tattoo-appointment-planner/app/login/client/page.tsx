@@ -5,7 +5,7 @@ import type React from "react"
 import { useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
-import { ArrowLeft, Eye, EyeOff, Users } from "lucide-react"
+import { ArrowLeft, Eye, EyeOff, User } from "lucide-react"
 import { motion } from "framer-motion"
 import { createClient } from "@/lib/supabase/client"
 
@@ -80,7 +80,7 @@ export default function ClientLoginPage() {
 
           <div className="flex justify-center mb-6">
             <div className="bg-blue-900/20 p-4 rounded-full border border-blue-800">
-              <Users className="h-8 w-8 text-blue-500" />
+              <User className="h-8 w-8 text-blue-500" />
             </div>
           </div>
 
@@ -137,7 +137,7 @@ export default function ClientLoginPage() {
                   id="remember-me"
                   name="remember-me"
                   type="checkbox"
-                  className="h-4 w-4 bg-bg border-textTertiary/30 rounded focus:ring-primary/50"
+                  className="h-4 w-4 bg-bg border-textTertiary/30 rounded checkbox-client"
                 />
                 <label htmlFor="remember-me" className="ml-2 block text-sm text-textTertiary">
                   Remember me

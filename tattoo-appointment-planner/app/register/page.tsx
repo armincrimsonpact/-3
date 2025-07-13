@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowLeft, User, Users, Building2 } from "lucide-react"
+import { ArrowLeft, User, Brush, Building, Shield } from "lucide-react"
 
 export default function RegisterPage() {
   return (
@@ -27,17 +27,17 @@ export default function RegisterPage() {
           <h1 className="text-3xl font-bold text-textSecondary text-center mb-6">Create Your InkCircle Account</h1>
           <p className="text-textTertiary text-center mb-10">Choose your account type to continue</p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Artist Registration Option */}
             <Link href="/register/artist" className="block">
               <div className="bg-gray-900 border border-gray-700/30 rounded-lg p-6 hover:bg-purple-500/20 hover:border-purple-500/50 transition-all duration-300">
                 <div className="flex justify-center mb-4">
-                  <div className="bg-gray-800 p-3 rounded-full border border-gray-700">
-                    <User className="h-6 w-6 text-gray-400" />
+                  <div className="bg-purple-500/20 p-3 rounded-full border border-purple-500/30">
+                    <Brush className="h-6 w-6 text-purple-400" />
                   </div>
                 </div>
-                <h3 className="text-xl font-bold text-white text-center mb-2">Artist</h3>
-                <p className="text-gray-400 text-center text-sm">Create an artist profile and showcase your work</p>
+                <h3 className="text-xl font-bold text-purple-300 text-center mb-2">Artist</h3>
+                <p className="text-purple-200/80 text-center text-sm">Create an artist profile and showcase your work</p>
               </div>
             </Link>
 
@@ -45,12 +45,12 @@ export default function RegisterPage() {
             <Link href="/register/client" className="block">
               <div className="bg-gray-900 border border-gray-700/30 rounded-lg p-6 hover:bg-blue-500/20 hover:border-blue-500/50 transition-all duration-300">
                 <div className="flex justify-center mb-4">
-                  <div className="bg-gray-800 p-3 rounded-full border border-gray-700">
-                    <Users className="h-6 w-6 text-gray-400" />
+                  <div className="bg-blue-500/20 p-3 rounded-full border border-blue-500/30">
+                    <User className="h-6 w-6 text-blue-400" />
                   </div>
                 </div>
-                <h3 className="text-xl font-bold text-white text-center mb-2">Client</h3>
-                <p className="text-gray-400 text-center text-sm">Book appointments and find your perfect artist</p>
+                <h3 className="text-xl font-bold text-blue-300 text-center mb-2">Client</h3>
+                <p className="text-blue-200/80 text-center text-sm">Book appointments and find your perfect artist</p>
               </div>
             </Link>
 
@@ -58,12 +58,25 @@ export default function RegisterPage() {
             <Link href="/register/studio" className="block">
               <div className="bg-gray-900 border border-gray-700/30 rounded-lg p-6 hover:bg-teal-500/20 hover:border-teal-500/50 transition-all duration-300">
                 <div className="flex justify-center mb-4">
-                  <div className="bg-gray-800 p-3 rounded-full border border-gray-700">
-                    <Building2 className="h-6 w-6 text-gray-400" />
+                  <div className="bg-teal-500/20 p-3 rounded-full border border-teal-500/30">
+                    <Building className="h-6 w-6 text-teal-400" />
                   </div>
                 </div>
-                <h3 className="text-xl font-bold text-white text-center mb-2">Studio</h3>
-                <p className="text-gray-400 text-center text-sm">Manage your studio and artist team</p>
+                <h3 className="text-xl font-bold text-teal-300 text-center mb-2">Studio</h3>
+                <p className="text-teal-200/80 text-center text-sm">Manage your studio and artist team</p>
+              </div>
+            </Link>
+
+            {/* Admin Registration Option */}
+            <Link href="/register/admin" className="block">
+              <div className="bg-gray-900 border border-gray-700/30 rounded-lg p-6 hover:bg-red-500/20 hover:border-red-500/50 transition-all duration-300">
+                <div className="flex justify-center mb-4">
+                  <div className="bg-red-500/20 p-3 rounded-full border border-red-500/30">
+                    <Shield className="h-6 w-6 text-red-400" />
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold text-red-300 text-center mb-2">Admin</h3>
+                <p className="text-red-200/80 text-center text-sm">Platform administration access</p>
               </div>
             </Link>
           </div>

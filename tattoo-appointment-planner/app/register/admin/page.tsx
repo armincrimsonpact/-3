@@ -253,7 +253,7 @@ export default function AdminRegisterPage() {
                 type="checkbox"
                 checked={formData.agreeToTerms}
                 onChange={handleChange}
-                className="h-4 w-4 bg-black border-gray-700 rounded focus:ring-red-500 mt-0.5"
+                className="h-4 w-4 bg-bg border-textTertiary/30 rounded checkbox-admin mt-0.5"
               />
               <label htmlFor="agreeToTerms" className="ml-2 block text-sm text-gray-400">
                 I agree to the{" "}

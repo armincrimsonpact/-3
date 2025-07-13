@@ -602,6 +602,43 @@ input[type="checkbox"]:focus {
   box-shadow: 0 0 0 2px rgba(20, 184, 166, 0.2);
 }
 
+/* Individual checkbox colors for user types */
+input[type="checkbox"].checkbox-client:checked {
+  background-color: #3b82f6;
+  border-color: #3b82f6;
+}
+
+input[type="checkbox"].checkbox-client:focus {
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+input[type="checkbox"].checkbox-artist:checked {
+  background-color: #8b5cf6;
+  border-color: #8b5cf6;
+}
+
+input[type="checkbox"].checkbox-artist:focus {
+  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+}
+
+input[type="checkbox"].checkbox-studio:checked {
+  background-color: #14b8a6;
+  border-color: #14b8a6;
+}
+
+input[type="checkbox"].checkbox-studio:focus {
+  box-shadow: 0 0 0 2px rgba(20, 184, 166, 0.2);
+}
+
+input[type="checkbox"].checkbox-admin:checked {
+  background-color: #ef4444;
+  border-color: #ef4444;
+}
+
+input[type="checkbox"].checkbox-admin:focus {
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
+}
+
 /* Textarea styling */
 textarea {
   background-color: #0d1520 !important;

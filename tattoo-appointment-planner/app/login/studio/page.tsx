@@ -5,7 +5,7 @@ import type React from "react"
 import { useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
-import { ArrowLeft, Eye, EyeOff, Building2 } from "lucide-react"
+import { ArrowLeft, Eye, EyeOff, Building } from "lucide-react"
 import { motion } from "framer-motion"
 
 export default function StudioLoginPage() {
@@ -79,7 +79,7 @@ export default function StudioLoginPage() {
 
           <div className="flex justify-center mb-6">
             <div className="bg-teal-900/20 p-4 rounded-full border border-teal-800">
-              <Building2 className="h-8 w-8 text-teal-500" />
+              <Building className="h-8 w-8 text-teal-500" />
             </div>
           </div>
 
@@ -136,7 +136,7 @@ export default function StudioLoginPage() {
                   id="remember-me"
                   name="remember-me"
                   type="checkbox"
-                  className="h-4 w-4 bg-bg border-textTertiary/30 rounded focus:ring-primary/50"
+                  className="h-4 w-4 bg-bg border-textTertiary/30 rounded checkbox-studio"
                 />
                 <label htmlFor="remember-me" className="ml-2 block text-sm text-textTertiary">
                   Remember me

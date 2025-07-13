@@ -148,7 +148,7 @@ export default function AdminLoginPage() {
                   id="remember-me"
                   name="remember-me"
                   type="checkbox"
-                  className="h-4 w-4 bg-bg border-textTertiary/30 rounded focus:ring-red-500/50"
+                  className="h-4 w-4 bg-bg border-textTertiary/30 rounded checkbox-admin"
                 />
                 <label htmlFor="remember-me" className="ml-2 block text-sm text-textTertiary">
                   Remember me
