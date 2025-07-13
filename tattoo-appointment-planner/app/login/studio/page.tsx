@@ -5,7 +5,7 @@ import type React from "react"
 import { useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
-import { ArrowLeft, Eye, EyeOff } from "lucide-react"
+import { ArrowLeft, Eye, EyeOff, Building2 } from "lucide-react"
 import { motion } from "framer-motion"
 
 export default function StudioLoginPage() {
@@ -77,6 +77,12 @@ export default function StudioLoginPage() {
             Back to Login Options
           </Link>
 
+          <div className="flex justify-center mb-6">
+            <div className="bg-teal-900/20 p-4 rounded-full border border-teal-800">
+              <Building2 className="h-8 w-8 text-teal-500" />
+            </div>
+          </div>
+
           <h1 className="text-3xl font-bold text-textSecondary text-center mb-6">Studio Login</h1>
           <p className="text-textTertiary text-center mb-10">Sign in to manage your studio and artist team</p>
 
@@ -95,7 +101,7 @@ export default function StudioLoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full px-4 py-3 bg-bg border border-textTertiary/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 text-textPrimary transition-all"
+                className="w-full px-4 py-3 bg-bg border border-textTertiary/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-500/50 text-textPrimary transition-all"
                 placeholder="studio@example.com"
               />
             </div>
@@ -111,7 +117,7 @@ export default function StudioLoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="w-full px-4 py-3 bg-bg border border-textTertiary/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 text-textPrimary pr-10 transition-all"
+                  className="w-full px-4 py-3 bg-bg border border-textTertiary/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-500/50 text-textPrimary pr-10 transition-all"
                   placeholder="••••••••"
                 />
                 <button

@@ -5,7 +5,7 @@ import type React from "react"
 import { useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
-import { ArrowLeft, Eye, EyeOff } from "lucide-react"
+import { ArrowLeft, Eye, EyeOff, Users } from "lucide-react"
 import { motion } from "framer-motion"
 import { createClient } from "@/lib/supabase/client"
 
@@ -78,6 +78,12 @@ export default function ClientLoginPage() {
             Back to Login Options
           </Link>
 
+          <div className="flex justify-center mb-6">
+            <div className="bg-blue-900/20 p-4 rounded-full border border-blue-800">
+              <Users className="h-8 w-8 text-blue-500" />
+            </div>
+          </div>
+
           <h1 className="text-3xl font-bold text-textSecondary text-center mb-6">Client Login</h1>
           <p className="text-textTertiary text-center mb-10">Sign in to manage your tattoo appointments</p>
 
@@ -96,7 +102,7 @@ export default function ClientLoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full px-4 py-3 bg-bg border border-textTertiary/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 text-textPrimary transition-all"
+                className="w-full px-4 py-3 bg-bg border border-textTertiary/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 text-textPrimary transition-all"
                 placeholder="your.email@example.com"
               />
             </div>
@@ -112,7 +118,7 @@ export default function ClientLoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="w-full px-4 py-3 bg-bg border border-textTertiary/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 text-textPrimary pr-10 transition-all"
+                  className="w-full px-4 py-3 bg-bg border border-textTertiary/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 text-textPrimary pr-10 transition-all"
                   placeholder="••••••••"
                 />
                 <button

@@ -30,40 +30,40 @@ export default function RegisterPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Artist Registration Option */}
             <Link href="/register/artist" className="block">
-              <div className="bg-purple-500/20 border border-purple-500/50 rounded-lg p-6 hover:bg-purple-500/30 hover:border-purple-500/70 transition-all duration-300">
+              <div className="bg-gray-900 border border-gray-700/30 rounded-lg p-6 hover:bg-purple-500/20 hover:border-purple-500/50 transition-all duration-300">
                 <div className="flex justify-center mb-4">
-                  <div className="bg-purple-500/30 p-3 rounded-full border border-purple-500/50">
-                    <User className="h-6 w-6 text-purple-300" />
+                  <div className="bg-gray-800 p-3 rounded-full border border-gray-700">
+                    <User className="h-6 w-6 text-gray-400" />
                   </div>
                 </div>
                 <h3 className="text-xl font-bold text-white text-center mb-2">Artist</h3>
-                <p className="text-purple-200 text-center text-sm">Create an artist profile and showcase your work</p>
+                <p className="text-gray-400 text-center text-sm">Create an artist profile and showcase your work</p>
               </div>
             </Link>
 
             {/* Client Registration Option */}
             <Link href="/register/client" className="block">
-              <div className="bg-blue-500/20 border border-blue-500/50 rounded-lg p-6 hover:bg-blue-500/30 hover:border-blue-500/70 transition-all duration-300">
+              <div className="bg-gray-900 border border-gray-700/30 rounded-lg p-6 hover:bg-blue-500/20 hover:border-blue-500/50 transition-all duration-300">
                 <div className="flex justify-center mb-4">
-                  <div className="bg-blue-500/30 p-3 rounded-full border border-blue-500/50">
-                    <Users className="h-6 w-6 text-blue-300" />
+                  <div className="bg-gray-800 p-3 rounded-full border border-gray-700">
+                    <Users className="h-6 w-6 text-gray-400" />
                   </div>
                 </div>
                 <h3 className="text-xl font-bold text-white text-center mb-2">Client</h3>
-                <p className="text-blue-200 text-center text-sm">Book appointments and find your perfect artist</p>
+                <p className="text-gray-400 text-center text-sm">Book appointments and find your perfect artist</p>
               </div>
             </Link>
 
             {/* Studio Registration Option */}
             <Link href="/register/studio" className="block">
-              <div className="bg-teal-500/20 border border-teal-500/50 rounded-lg p-6 hover:bg-teal-500/30 hover:border-teal-500/70 transition-all duration-300">
+              <div className="bg-gray-900 border border-gray-700/30 rounded-lg p-6 hover:bg-teal-500/20 hover:border-teal-500/50 transition-all duration-300">
                 <div className="flex justify-center mb-4">
-                  <div className="bg-teal-500/30 p-3 rounded-full border border-teal-500/50">
-                    <Building2 className="h-6 w-6 text-teal-300" />
+                  <div className="bg-gray-800 p-3 rounded-full border border-gray-700">
+                    <Building2 className="h-6 w-6 text-gray-400" />
                   </div>
                 </div>
                 <h3 className="text-xl font-bold text-white text-center mb-2">Studio</h3>
-                <p className="text-teal-200 text-center text-sm">Manage your studio and artist team</p>
+                <p className="text-gray-400 text-center text-sm">Manage your studio and artist team</p>
               </div>
             </Link>
           </div>
