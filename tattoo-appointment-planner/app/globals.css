@@ -535,9 +535,8 @@ input:not(:placeholder-shown) {
 
 input:not(:placeholder-shown):focus {
   background-color: #0d1520 !important;
-  border-color: #14b8a6 !important;
-  box-shadow: 0 0 0 2px rgba(20, 184, 166, 0.2) !important;
   color: white !important;
+  /* Don't override border-color and box-shadow to allow specific form colors */
 }
 
 /* Force override for any input with a value */
@@ -550,8 +549,7 @@ input[value]:not([value=""]) {
 input[value]:not([value=""]):focus {
   background-color: #0d1520 !important;
   color: white !important;
-  border-color: #14b8a6 !important;
-  box-shadow: 0 0 0 2px rgba(20, 184, 166, 0.2) !important;
+  /* Don't override border-color and box-shadow to allow specific form colors */
 }
 
 /* Nuclear option - override any input with background color */
@@ -608,6 +606,17 @@ input[type="checkbox"].checkbox-client:checked {
   border-color: #3b82f6;
 }
 
+input[type="checkbox"].checkbox-client:checked::after {
+  content: "✓";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
 input[type="checkbox"].checkbox-client:focus {
   box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
 }
@@ -615,6 +624,17 @@ input[type="checkbox"].checkbox-client:focus {
 input[type="checkbox"].checkbox-artist:checked {
   background-color: #8b5cf6;
   border-color: #8b5cf6;
+}
+
+input[type="checkbox"].checkbox-artist:checked::after {
+  content: "✓";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: bold;
 }
 
 input[type="checkbox"].checkbox-artist:focus {
@@ -626,6 +646,17 @@ input[type="checkbox"].checkbox-studio:checked {
   border-color: #14b8a6;
 }
 
+input[type="checkbox"].checkbox-studio:checked::after {
+  content: "✓";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
 input[type="checkbox"].checkbox-studio:focus {
   box-shadow: 0 0 0 2px rgba(20, 184, 166, 0.2);
 }
@@ -633,6 +664,17 @@ input[type="checkbox"].checkbox-studio:focus {
 input[type="checkbox"].checkbox-admin:checked {
   background-color: #ef4444;
   border-color: #ef4444;
+}
+
+input[type="checkbox"].checkbox-admin:checked::after {
+  content: "✓";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: bold;
 }
 
 input[type="checkbox"].checkbox-admin:focus {
