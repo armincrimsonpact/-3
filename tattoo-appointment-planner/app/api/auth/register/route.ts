@@ -32,6 +32,7 @@ export async function POST(request: Request) {
     })
 
     if (authError) {
+      console.error('Supabase auth error:', authError)
       return NextResponse.json(
         { error: authError.message },
         { status: 400 }
@@ -39,6 +40,7 @@ export async function POST(request: Request) {
     }
 
     if (!authData.user) {
+      console.error('No user returned from Supabase auth')
       return NextResponse.json(
         { error: 'Failed to create user' },
         { status: 500 }
@@ -48,60 +50,80 @@ export async function POST(request: Request) {
     // Wait a moment for the trigger to create the UserProfile
     await new Promise(resolve => setTimeout(resolve, 1000))
 
-    // Update the user profile with the correct role and name (trigger creates with default CLIENT role)
-    const userProfile = await prisma.userProfile.update({
-      where: {
-        authId: authData.user.id
-      },
-      data: {
-        name,
-        role
-      }
+    // Try to find existing user profile first (in case trigger worked)
+    let userProfile = await prisma.userProfile.findUnique({
+      where: { authId: authData.user.id }
     })
 
-    // Create role-specific profile
-    switch (role) {
-      case 'CLIENT':
-        await prisma.client.create({
-          data: {
-            userId: userProfile.id
-          }
-        })
-        break
-      case 'ARTIST':
-        await prisma.artist.create({
-          data: {
-            userId: userProfile.id,
-            specialties: [],
-            portfolioImages: []
-          }
-        })
-        break
-      case 'STUDIO':
-        await prisma.studio.create({
-          data: {
-            userId: userProfile.id,
-            name: name || 'Studio',
-            address: '',
-            city: '',
-            state: '',
-            zipCode: '',
-            phone: '',
-            images: []
-          }
-        })
-        break
-      case 'ADMIN':
-        await prisma.admin.create({
-          data: {
-            userId: userProfile.id,
-            permissions: []
-          }
-        })
-        break
+    if (!userProfile) {
+      // Create user profile if trigger didn't work
+      userProfile = await prisma.userProfile.create({
+        data: {
+          authId: authData.user.id,
+          email,
+          name,
+          role
+        }
+      })
+    } else {
+      // Update existing user profile
+      userProfile = await prisma.userProfile.update({
+        where: { authId: authData.user.id },
+        data: {
+          name,
+          role
+        }
+      })
     }
 
-    // Send verification email
+    // Create role-specific profile
+    try {
+      switch (role) {
+        case 'CLIENT':
+          await prisma.client.create({
+            data: {
+              userId: userProfile.id
+            }
+          })
+          break
+        case 'ARTIST':
+          await prisma.artist.create({
+            data: {
+              userId: userProfile.id,
+              specialties: [],
+              portfolioImages: []
+            }
+          })
+          break
+        case 'STUDIO':
+          await prisma.studio.create({
+            data: {
+              userId: userProfile.id,
+              name: name || 'Studio',
+              address: '',
+              city: '',
+              state: '',
+              zipCode: '',
+              phone: '',
+              images: []
+            }
+          })
+          break
+        case 'ADMIN':
+          await prisma.admin.create({
+            data: {
+              userId: userProfile.id,
+              permissions: []
+            }
+          })
+          break
+      }
+    } catch (roleError) {
+      console.error('Role-specific profile creation error:', roleError)
+      // Don't fail registration if role profile creation fails
+    }
+
+    // Send verification email (optional, don't fail if it doesn't work)
     try {
       await sendVerificationEmail(email, name)
     } catch (emailError) {
@@ -128,12 +150,23 @@ export async function POST(request: Request) {
       )
     }
 
-    // Handle case where UserProfile wasn't created by trigger
-    if (error instanceof Error && 'code' in error && error.code === 'P2025') {
-      return NextResponse.json(
-        { error: 'User profile creation failed. Please try again.' },
-        { status: 500 }
-      )
+    // Handle specific Prisma errors
+    if (error instanceof Error && 'code' in error) {
+      const prismaError = error as any
+      
+      if (prismaError.code === 'P2025') {
+        return NextResponse.json(
+          { error: 'User profile creation failed. Please try again.' },
+          { status: 500 }
+        )
+      }
+      
+      if (prismaError.code === 'P2002') {
+        return NextResponse.json(
+          { error: 'User already exists with this email.' },
+          { status: 400 }
+        )
+      }
     }
 
     return NextResponse.json(

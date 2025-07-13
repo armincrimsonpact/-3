@@ -2,16 +2,25 @@ import nodemailer from 'nodemailer'
 import { prisma } from '@/lib/prisma'
 import crypto from 'crypto'
 
-// Create reusable transporter
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: parseInt(process.env.SMTP_PORT || '587'),
-  secure: process.env.SMTP_PORT === '465', // true for 465, false for other ports
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASSWORD,
-  },
-})
+// Check if email service is configured
+const isEmailConfigured = () => {
+  return !!(process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASSWORD)
+}
+
+// Create reusable transporter only if configured
+let transporter: nodemailer.Transporter | null = null
+
+if (isEmailConfigured()) {
+  transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST,
+    port: parseInt(process.env.SMTP_PORT || '587'),
+    secure: process.env.SMTP_PORT === '465', // true for 465, false for other ports
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASSWORD,
+    },
+  })
+}
 
 // Email templates
 const emailTemplates = {
@@ -58,22 +67,21 @@ const emailTemplates = {
   }),
 
   appointmentConfirmation: (clientName: string, artistName: string, date: Date, duration: number) => ({
-    subject: 'Appointment Confirmation - InkCircle',
+    subject: 'Appointment Confirmed - InkCircle',
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <h1 style="color: #14b8a6;">Appointment Confirmed!</h1>
         <p>Hi ${clientName},</p>
-        <p>Your appointment has been confirmed with the following details:</p>
-        <div style="background-color: #f5f5f5; padding: 20px; border-radius: 5px; margin: 20px 0;">
+        <p>Your tattoo appointment has been confirmed with ${artistName}.</p>
+        <div style="background-color: #f0f0f0; padding: 20px; border-radius: 5px; margin: 20px 0;">
+          <h3>Appointment Details:</h3>
           <p><strong>Artist:</strong> ${artistName}</p>
           <p><strong>Date:</strong> ${date.toLocaleDateString()}</p>
           <p><strong>Time:</strong> ${date.toLocaleTimeString()}</p>
           <p><strong>Duration:</strong> ${duration} minutes</p>
         </div>
-        <p>Please arrive 10 minutes early for your appointment.</p>
-        <p>If you need to cancel or reschedule, please do so at least 24 hours in advance.</p>
-        <hr style="border: none; border-top: 1px solid #e5e5e5; margin: 30px 0;">
-        <p style="color: #666; font-size: 14px;">Thank you for choosing InkCircle!</p>
+        <p>Please arrive 15 minutes early for your appointment.</p>
+        <p>If you need to reschedule or cancel, please contact us at least 24 hours in advance.</p>
       </div>
     `,
   }),
@@ -84,47 +92,53 @@ const emailTemplates = {
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <h1 style="color: #14b8a6;">Appointment Reminder</h1>
         <p>Hi ${clientName},</p>
-        <p>This is a reminder about your upcoming appointment:</p>
-        <div style="background-color: #f5f5f5; padding: 20px; border-radius: 5px; margin: 20px 0;">
+        <p>This is a reminder that you have an appointment with ${artistName} tomorrow.</p>
+        <div style="background-color: #f0f0f0; padding: 20px; border-radius: 5px; margin: 20px 0;">
+          <h3>Appointment Details:</h3>
           <p><strong>Artist:</strong> ${artistName}</p>
           <p><strong>Date:</strong> ${date.toLocaleDateString()}</p>
           <p><strong>Time:</strong> ${date.toLocaleTimeString()}</p>
         </div>
-        <p>Please remember to:</p>
-        <ul>
-          <li>Arrive 10 minutes early</li>
-          <li>Bring a valid ID</li>
-          <li>Eat a good meal beforehand</li>
-          <li>Stay hydrated</li>
-        </ul>
-        <hr style="border: none; border-top: 1px solid #e5e5e5; margin: 30px 0;">
-        <p style="color: #666; font-size: 14px;">We look forward to seeing you!</p>
+        <p>Please arrive 15 minutes early for your appointment.</p>
+        <p>See you soon!</p>
       </div>
     `,
   }),
 }
 
-// Email sending functions
+// Send email function
 export async function sendEmail(to: string, subject: string, html: string) {
+  if (!transporter) {
+    console.warn('Email service not configured - skipping email send')
+    return Promise.resolve()
+  }
+
   try {
-    const info = await transporter.sendMail({
-      from: `"InkCircle" <${process.env.SMTP_USER}>`,
+    await transporter.sendMail({
+      from: process.env.SMTP_FROM || process.env.SMTP_USER,
       to,
       subject,
       html,
     })
-    console.log('Email sent:', info.messageId)
-    return { success: true, messageId: info.messageId }
+    console.log(`Email sent to ${to}`)
   } catch (error) {
-    console.error('Email sending failed:', error)
-    return { success: false, error }
+    console.error('Failed to send email:', error)
+    throw error
   }
 }
 
+// Send verification email
 export async function sendVerificationEmail(email: string, name: string | null) {
+  if (!isEmailConfigured()) {
+    console.warn('Email service not configured - skipping verification email')
+    return Promise.resolve()
+  }
+
+  // Generate verification token
   const token = crypto.randomBytes(32).toString('hex')
   const expires = new Date(Date.now() + 24 * 60 * 60 * 1000) // 24 hours
 
+  // Save token to database
   await prisma.verificationToken.create({
     data: {
       identifier: email,
@@ -133,16 +147,24 @@ export async function sendVerificationEmail(email: string, name: string | null) 
     },
   })
 
-  const verificationUrl = `${process.env.NEXT_PUBLIC_APP_URL}/api/auth/verify-email?token=${token}`
-  const { subject, html } = emailTemplates.verifyEmail(name || '', verificationUrl)
-  
-  return sendEmail(email, subject, html)
+  const verificationUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/verify-email?token=${token}`
+  const { subject, html } = emailTemplates.verifyEmail(name || 'there', verificationUrl)
+
+  await sendEmail(email, subject, html)
 }
 
+// Send password reset email
 export async function sendPasswordResetEmail(email: string, name: string | null) {
+  if (!isEmailConfigured()) {
+    console.warn('Email service not configured - skipping password reset email')
+    return Promise.resolve()
+  }
+
+  // Generate reset token
   const token = crypto.randomBytes(32).toString('hex')
   const expires = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
 
+  // Save token to database
   await prisma.passwordResetToken.create({
     data: {
       email,
@@ -151,12 +173,13 @@ export async function sendPasswordResetEmail(email: string, name: string | null)
     },
   })
 
-  const resetUrl = `${process.env.NEXT_PUBLIC_APP_URL}/reset-password?token=${token}`
-  const { subject, html } = emailTemplates.resetPassword(name || '', resetUrl)
-  
-  return sendEmail(email, subject, html)
+  const resetUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/reset-password?token=${token}`
+  const { subject, html } = emailTemplates.resetPassword(name || 'there', resetUrl)
+
+  await sendEmail(email, subject, html)
 }
 
+// Send appointment confirmation email
 export async function sendAppointmentConfirmation(
   clientEmail: string,
   clientName: string,
@@ -164,27 +187,27 @@ export async function sendAppointmentConfirmation(
   date: Date,
   duration: number
 ) {
-  const { subject, html } = emailTemplates.appointmentConfirmation(
-    clientName,
-    artistName,
-    date,
-    duration
-  )
-  
-  return sendEmail(clientEmail, subject, html)
+  if (!isEmailConfigured()) {
+    console.warn('Email service not configured - skipping appointment confirmation email')
+    return Promise.resolve()
+  }
+
+  const { subject, html } = emailTemplates.appointmentConfirmation(clientName, artistName, date, duration)
+  await sendEmail(clientEmail, subject, html)
 }
 
+// Send appointment reminder email
 export async function sendAppointmentReminder(
   clientEmail: string,
   clientName: string,
   artistName: string,
   date: Date
 ) {
-  const { subject, html } = emailTemplates.appointmentReminder(
-    clientName,
-    artistName,
-    date
-  )
-  
-  return sendEmail(clientEmail, subject, html)
+  if (!isEmailConfigured()) {
+    console.warn('Email service not configured - skipping appointment reminder email')
+    return Promise.resolve()
+  }
+
+  const { subject, html } = emailTemplates.appointmentReminder(clientName, artistName, date)
+  await sendEmail(clientEmail, subject, html)
 }
