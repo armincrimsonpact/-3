@@ -16,6 +16,8 @@ export class SecureStorage {
    * Store data with expiration
    */
   static setItem<T>(key: string, value: T, expiryMinutes?: number): void {
+    if (typeof window === 'undefined') return
+
     const expiry = expiryMinutes 
       ? Date.now() + (expiryMinutes * 60 * 1000)
       : Date.now() + this.EXPIRY_TIME
@@ -36,6 +38,8 @@ export class SecureStorage {
    * Retrieve data and check expiration
    */
   static getItem<T>(key: string): T | null {
+    if (typeof window === 'undefined') return null
+
     try {
       const itemStr = sessionStorage.getItem(key)
       if (!itemStr) return null
@@ -59,6 +63,8 @@ export class SecureStorage {
    * Remove specific item
    */
   static removeItem(key: string): void {
+    if (typeof window === 'undefined') return
+
     try {
       sessionStorage.removeItem(key)
     } catch (error) {
@@ -70,6 +76,8 @@ export class SecureStorage {
    * Clear all expired items
    */
   static clearExpired(): void {
+    if (typeof window === 'undefined') return
+
     try {
       const keys = Object.keys(sessionStorage)
       
@@ -96,6 +104,8 @@ export class SecureStorage {
    * Clear all storage
    */
   static clear(): void {
+    if (typeof window === 'undefined') return
+
     try {
       sessionStorage.clear()
     } catch (error) {
@@ -107,6 +117,8 @@ export class SecureStorage {
    * Get all keys
    */
   static getAllKeys(): string[] {
+    if (typeof window === 'undefined') return []
+
     try {
       return Object.keys(sessionStorage)
     } catch (error) {

@@ -24,7 +24,6 @@ const nextConfig = {
   compress: true,
   poweredByHeader: false,
   reactStrictMode: true,
-  swcMinify: true,
   
   // Webpack optimizations
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
