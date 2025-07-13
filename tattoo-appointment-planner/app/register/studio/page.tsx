@@ -4,7 +4,7 @@ import type React from "react"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
-import { ArrowLeft, Eye, EyeOff } from "lucide-react"
+import { ArrowLeft, Eye, EyeOff, Building } from "lucide-react"
 import { motion } from "framer-motion"
 
 export default function StudioRegisterPage() {
@@ -101,32 +101,36 @@ export default function StudioRegisterPage() {
   }
 
   return (
-    <div className="min-h-screen bg-bg">
-      {/* Background effects removed for pure black background */}
-
+    <div className="min-h-screen bg-black">
       {/* Header */}
-      <header className="relative z-10 p-6">
+      <header className="p-6">
         <Link href="/home" className="inline-flex items-center">
-          <span className="text-primary mr-2 text-2xl">●</span>
-          <span className="text-textPrimary text-2xl font-bold">InkCircle</span>
+          <span className="text-teal-500 mr-2 text-2xl">●</span>
+          <span className="text-white text-2xl font-bold">InkCircle</span>
         </Link>
       </header>
 
       {/* Main Content */}
-      <main className="relative z-10 flex justify-center px-4 py-12">
+      <main className="flex justify-center px-4 py-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="w-full max-w-md bg-cardBg rounded-lg p-8 border border-textTertiary/20"
+          className="w-full max-w-md bg-[#111] rounded-lg p-8"
         >
-          <Link href="/register" className="inline-flex items-center text-textTertiary hover:text-textSecondary mb-8 transition-colors">
+          <Link href="/register" className="inline-flex items-center text-gray-400 hover:text-white mb-8">
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to Registration Options
           </Link>
 
-          <h1 className="text-3xl font-bold text-textSecondary text-center mb-6">Register Your Studio</h1>
-          <p className="text-textTertiary text-center mb-10">Join InkCircle to manage your studio and artist team</p>
+          <div className="flex justify-center mb-6">
+            <div className="bg-teal-900/20 p-4 rounded-full border border-teal-800">
+              <Building className="h-8 w-8 text-teal-500" />
+            </div>
+          </div>
+
+          <h1 className="text-3xl font-bold text-white text-center mb-6">Create Studio Account</h1>
+          <p className="text-gray-400 text-center mb-10">Manage your studio and artist team</p>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             {error && (
@@ -134,7 +138,7 @@ export default function StudioRegisterPage() {
             )}
 
             <div>
-              <label htmlFor="studioName" className="block text-sm font-medium text-textTertiary mb-1">
+              <label htmlFor="studioName" className="block text-sm font-medium text-gray-400 mb-1">
                 Studio Name
               </label>
               <input
@@ -144,14 +148,14 @@ export default function StudioRegisterPage() {
                 value={formData.studioName}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 bg-bg border border-textTertiary/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 text-textPrimary transition-all"
-                placeholder="Your studio name"
+                className="w-full px-4 py-3 bg-black border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-500/50 text-white transition-all"
+                placeholder="Enter your studio name"
               />
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-textTertiary mb-1">
-                Studio Email
+              <label htmlFor="email" className="block text-sm font-medium text-gray-400 mb-1">
+                Email
               </label>
               <input
                 id="email"
@@ -160,13 +164,13 @@ export default function StudioRegisterPage() {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 bg-bg border border-textTertiary/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 text-textPrimary transition-all"
+                className="w-full px-4 py-3 bg-black border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-500/50 text-white transition-all"
                 placeholder="studio@example.com"
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-textTertiary mb-1">
+              <label htmlFor="password" className="block text-sm font-medium text-gray-400 mb-1">
                 Password
               </label>
               <div className="relative">
@@ -177,40 +181,15 @@ export default function StudioRegisterPage() {
                   value={formData.password}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-bg border border-textTertiary/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 text-textPrimary pr-10 transition-all"
-                  placeholder="••••••••"
+                  className="w-full px-4 py-3 bg-black border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-500/50 text-white transition-all pr-10"
+                  placeholder="Enter your password"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-textTertiary hover:text-textSecondary transition-colors"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-300"
                 >
-                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                </button>
-              </div>
-            </div>
-
-            <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-textTertiary mb-1">
-                Confirm Password
-              </label>
-              <div className="relative">
-                <input
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  type={showConfirmPassword ? "text" : "password"}
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 bg-bg border border-textTertiary/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 text-textPrimary pr-10 transition-all"
-                  placeholder="••••••••"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-textTertiary hover:text-textSecondary transition-colors"
-                >
-                  {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                 </button>
               </div>
             </div>
@@ -222,9 +201,9 @@ export default function StudioRegisterPage() {
                 type="checkbox"
                 checked={formData.agreeToTerms}
                 onChange={handleChange}
-                className="h-4 w-4 bg-bg border-textTertiary/30 rounded checkbox-studio mt-0.5"
+                className="h-4 w-4 bg-black border-gray-700 rounded checkbox-studio mt-0.5"
               />
-              <label htmlFor="agreeToTerms" className="ml-2 block text-sm text-textTertiary">
+              <label htmlFor="agreeToTerms" className="ml-2 block text-sm text-gray-400">
                 I agree to the{" "}
                 <Link href="/terms" className="text-teal-500 hover:text-teal-400 transition-colors">
                   Terms and Conditions
@@ -239,7 +218,7 @@ export default function StudioRegisterPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full text-lg px-8 py-3 bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white font-medium rounded-lg border-2 border-teal-500 hover:border-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:ring-offset-2 focus:ring-offset-cardBg disabled:opacity-70 transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 relative overflow-hidden group"
+              className="w-full text-lg px-8 py-3 bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white font-medium rounded-lg border-2 border-teal-500 hover:border-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:ring-offset-2 focus:ring-offset-[#111] disabled:opacity-70 transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 relative overflow-hidden group"
             >
               <span className="relative z-10">{isLoading ? "Creating account..." : "Create account"}</span>
               <div className="absolute inset-0 bg-gradient-to-r from-teal-600 to-teal-700 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
@@ -247,7 +226,7 @@ export default function StudioRegisterPage() {
           </form>
 
           <div className="mt-8 text-center">
-            <p className="text-textTertiary">
+            <p className="text-gray-400">
               Already have an account?{" "}
               <Link href="/login/studio" className="text-teal-500 hover:text-teal-400 transition-colors">
                 Sign in
