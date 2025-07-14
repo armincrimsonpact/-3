@@ -13,21 +13,21 @@ export function Testimonials() {
     {
       name: "Alex Morgan",
       role: "Tattoo Artist, Berlin",
-      avatar: "/diverse-group.png",
+      avatar: "/placeholder-user.jpg",
       content:
         "InkCircle has completely changed how I run my business. The appointment system is intuitive and the client management saves me countless hours.",
     },
     {
       name: "Jamie Chen",
       role: "Client",
-      avatar: "/diverse-group.png",
+      avatar: "/placeholder-user.jpg",
       content:
         "Finding the perfect artist for my sleeve was so easy with InkCircle. The portfolio feature helped me find exactly the style I was looking for.",
     },
     {
       name: "Black Lotus Studio",
       role: "Tattoo Studio, Hamburg",
-      avatar: "/placeholder.svg?key=tnwdo",
+      avatar: "/placeholder-user.jpg",
       content:
         "Managing our artist team and tracking studio performance has never been easier. The analytics dashboard gives us valuable insights to grow our business.",
     },

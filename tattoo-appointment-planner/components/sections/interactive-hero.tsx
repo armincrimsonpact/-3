@@ -53,6 +53,46 @@ export function InteractiveHero() {
   return (
     <motion.section ref={heroRef} className="relative bg-black pt-24 pb-20 overflow-hidden" style={{ opacity }}>
       {/* Background elements that follow mouse precisely */}
+      <div className="absolute inset-0">
+        <motion.div
+          className="absolute top-20 left-10 w-64 h-64 bg-gradient-to-br from-teal-500/20 to-transparent rounded-full filter blur-3xl"
+          animate={{ 
+            x: [0, 100, 0],
+            y: [0, 50, 0],
+            scale: [1, 1.2, 1]
+          }}
+          transition={{ 
+            duration: 20,
+            repeat: Number.POSITIVE_INFINITY,
+            ease: "linear"
+          }}
+        />
+        <motion.div
+          className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-tl from-teal-400/10 to-transparent rounded-full filter blur-2xl"
+          animate={{ 
+            x: [0, -80, 0],
+            y: [0, -60, 0],
+            scale: [1, 0.8, 1]
+          }}
+          transition={{ 
+            duration: 15,
+            repeat: Number.POSITIVE_INFINITY,
+            ease: "linear"
+          }}
+        />
+        <motion.div
+          className="absolute top-1/2 left-1/2 w-32 h-32 bg-gradient-to-r from-teal-300/15 to-transparent rounded-full filter blur-xl"
+          animate={{ 
+            rotate: [0, 360],
+            scale: [1, 1.5, 1]
+          }}
+          transition={{ 
+            duration: 25,
+            repeat: Number.POSITIVE_INFINITY,
+            ease: "linear"
+          }}
+        />
+      </div>
 
       {/* Hero content */}
       <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center relative z-10">
@@ -133,7 +173,7 @@ export function InteractiveHero() {
               <img
                 src="/images/tattoo-artist-hero.jpg"
                 alt="Professional tattoo artist with tattoos"
-                className="w-full h-auto rounded"
+                className="w-full h-auto rounded object-cover"
               />
             </motion.div>
           </div>

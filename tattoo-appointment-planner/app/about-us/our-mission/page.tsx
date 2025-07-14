@@ -29,7 +29,7 @@ export default function OurMissionPage() {
             </div>
             <div className="bg-black border border-teal-500/20 rounded-lg p-4 transition-colors duration-300 hover:border-teal-500">
               <img
-                src="/placeholder.svg?key=9v8kx"
+                src="/tattoo-artist.jpg"
                 alt="Tattoo artist focused on their work"
                 className="w-full h-auto rounded"
               />

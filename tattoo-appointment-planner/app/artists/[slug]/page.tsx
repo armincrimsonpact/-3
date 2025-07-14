@@ -105,7 +105,11 @@ export default async function ArtistPortfolioPage({ params }: { params: Promise<
           <div className="flex flex-col md:flex-row gap-8 mb-12">
             <div className="md:w-1/3">
               <div className="bg-[#4a6964] p-4 rounded-lg">
-                <img src="/placeholder.svg?height=400&width=400" alt={artist.name} className="w-full h-auto rounded" />
+                <img 
+                  src="/tattoo-artist-portrait.png" 
+                  alt={artist.name} 
+                  className="w-full h-auto rounded" 
+                />
               </div>
             </div>
             <div className="md:w-2/3">

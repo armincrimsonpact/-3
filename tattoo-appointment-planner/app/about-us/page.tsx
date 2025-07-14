@@ -68,7 +68,7 @@ export default function AboutUsPage() {
 
             <div className="bg-black border border-teal-500/20 rounded-lg overflow-hidden transition-colors duration-300 hover:border-teal-500">
               <div className="bg-[#4a6964] p-3">
-                <img src="/coo-headshot.png" alt="Lisa Chen, COO" className="w-full h-auto rounded" />
+                <img src="/coo-headshot.png" alt="Lisa Schmidt, COO" className="w-full h-auto rounded" />
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-bold text-white mb-1">Lisa Chen</h3>
