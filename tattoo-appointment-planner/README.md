@@ -1,30 +1,93 @@
-# Dark theme dashboard
+# Next.js Template
 
-*Automatically synced with your [v0.dev](https://v0.dev) deployments*
+A modern, responsive web application template built with Next.js 15, React 19, TypeScript, and Tailwind CSS.
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/elternheld-gmailcoms-projects/v0-dark-theme-dashboard)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.dev-black?style=for-the-badge)](https://v0.dev/chat/projects/ewPmj8EHxGI)
+## Features
 
-## Overview
+- **Next.js 15** with App Router
+- **React 19** with latest features
+- **TypeScript** for type safety
+- **Tailwind CSS** for styling
+- **Framer Motion** for animations
+- **Responsive Design** that works on all devices
+- **SEO Optimized** with proper meta tags
+- **Performance Optimized** with modern best practices
+- **Clean Architecture** with modular components
 
-This repository will stay in sync with your deployed chats on [v0.dev](https://v0.dev).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.dev](https://v0.dev).
+## Getting Started
+
+1. **Clone the repository**
+   ```bash
+   git clone <your-repo-url>
+   cd nextjs-template
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Run the development server**
+   ```bash
+   npm run dev
+   ```
+
+4. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
+
+## Project Structure
+
+```
+├── app/                    # Next.js App Router pages
+│   ├── layout.tsx         # Root layout
+│   ├── page.tsx           # Homepage
+│   └── globals.css        # Global styles
+├── components/            # Reusable components
+│   ├── layout/           # Layout components
+│   ├── ui/              # UI components
+│   └── sections/        # Page sections
+├── lib/                  # Utility functions
+├── public/              # Static assets
+└── types/               # TypeScript types
+```
+
+## Customization
+
+### Branding
+- Update the brand name in `components/layout/main-nav.tsx`
+- Change colors in `tailwind.config.js`
+- Update metadata in `app/layout.tsx`
+
+### Content
+- Modify the homepage content in `app/page.tsx`
+- Add new pages in the `app/` directory
+- Update navigation links in `components/layout/main-nav.tsx`
+
+### Styling
+- Customize colors in `tailwind.config.js`
+- Modify global styles in `app/globals.css`
+- Update component styles as needed
+
+## Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
+- `npm run type-check` - Run TypeScript type checking
 
 ## Deployment
 
-Your project is live at:
+This template is ready for deployment on platforms like:
+- Vercel (recommended)
+- Netlify
+- Railway
+- Any Node.js hosting platform
 
-**[https://vercel.com/elternheld-gmailcoms-projects/v0-dark-theme-dashboard](https://vercel.com/elternheld-gmailcoms-projects/v0-dark-theme-dashboard)**
+## License
 
-## Build your app
+This template is open source and available under the [MIT License](LICENSE).
 
-Continue building your app on:
+## Support
 
-**[https://v0.dev/chat/projects/ewPmj8EHxGI](https://v0.dev/chat/projects/ewPmj8EHxGI)**
-
-## How It Works
-
-1. Create and modify your project using [v0.dev](https://v0.dev)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+For questions or support, please open an issue in the repository.

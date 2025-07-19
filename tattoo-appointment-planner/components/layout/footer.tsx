@@ -22,21 +22,21 @@ export function Footer() {
 
   const footerSections = [
     {
-      title: "Platform",
+      title: "Company",
       links: [
-        { href: "/artists", label: "Artists" },
-        { href: "/booking", label: "Book Appointment" },
-        { href: "/portfolio", label: "Portfolio" },
-        { href: "/community", label: "Community" },
+        { href: "/about", label: "About Us" },
+        { href: "/services", label: "Services" },
+        { href: "/contact", label: "Contact" },
+        { href: "/careers", label: "Careers" },
       ],
     },
     {
-      title: "Company",
+      title: "Resources",
       links: [
-        { href: "/about-us", label: "About Us" },
-        { href: "/about-us/our-mission", label: "Our Mission" },
-        { href: "/about-us/careers", label: "Careers" },
-        { href: "/about-us/contact", label: "Contact" },
+        { href: "/blog", label: "Blog" },
+        { href: "/help", label: "Help Center" },
+        { href: "/support", label: "Support" },
+        { href: "/faq", label: "FAQ" },
       ],
     },
     {
@@ -44,10 +44,8 @@ export function Footer() {
       links: [
         { href: "/terms", label: "Terms of Service" },
         { href: "/privacy", label: "Privacy Policy" },
-        { href: "/impressum", label: "Impressum" },
-        { href: "/datenschutz", label: "Datenschutz" },
-        { href: "/widerrufsbelehrung", label: "Widerrufsbelehrung" },
-        { href: "/agb", label: "AGB" },
+        { href: "/cookies", label: "Cookie Policy" },
+        { href: "/legal", label: "Legal Notice" },
       ],
     },
   ]
@@ -87,7 +85,7 @@ export function Footer() {
             viewport={{ once: true }}
           >
             <h3 className="text-white font-bold text-lg mb-4 relative inline-block">
-              InkCircle
+              Your Brand
               <motion.div
                 className="absolute -bottom-1 left-0 h-0.5 bg-teal-500"
                 initial={{ width: 0 }}
@@ -97,7 +95,7 @@ export function Footer() {
               />
             </h3>
             <p className="text-gray-400 mb-4">
-              Connecting tattoo artists, studios, and clients in one seamless platform.
+              A modern web application template built with Next.js, TypeScript, and Tailwind CSS.
             </p>
             <div className="flex space-x-4">
               {socialLinks.map((social, index) => (
@@ -151,8 +149,8 @@ export function Footer() {
                     <AnimatedLink
                       href={link.href}
                       underlineStyle="slide"
-                      underlineColor="bg-primary"
-                      className="text-gray-400 hover:text-primary transition-colors duration-300"
+                      underlineColor="bg-teal-500"
+                      className="text-gray-400 hover:text-teal-500 transition-colors duration-300"
                     >
                       {link.label}
                     </AnimatedLink>
@@ -171,7 +169,7 @@ export function Footer() {
           viewport={{ once: true }}
         >
           <p className="text-gray-400 text-center">
-            &copy; {new Date().getFullYear()} InkCircle GmbH. All rights reserved.
+            &copy; {new Date().getFullYear()} Your Brand. All rights reserved.
           </p>
         </motion.div>
       </div>

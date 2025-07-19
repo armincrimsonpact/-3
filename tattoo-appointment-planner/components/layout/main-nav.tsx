@@ -39,117 +39,66 @@ export function MainNav() {
       transition={{ duration: 0.5 }}
     >
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        <Link href="/home" className="text-white text-2xl font-bold flex items-center">
+        <Link href="/" className="text-white text-2xl font-bold flex items-center">
           <motion.span
-            className="text-primary mr-1"
+            className="text-teal-500 mr-1"
             animate={{ scale: [1, 1.1, 1] }}
             transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, repeatType: "reverse" }}
           >
             ●
           </motion.span>
-          InkCircle
+          Your Brand
         </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex space-x-10 items-center">
           <AnimatedLink
-            href="/home"
+            href="/"
             underlineStyle="slide"
             className={
-              pathname === "/home" ? "text-primary font-medium text-base" : "text-white/80 hover:text-primary text-base"
+              pathname === "/" ? "text-teal-500 font-medium text-base" : "text-white/80 hover:text-teal-500 text-base"
             }
           >
             Home
           </AnimatedLink>
 
-          {/* Temporarily hidden
           <AnimatedLink
-            href="/artists"
+            href="/about"
             underlineStyle="slide"
             className={
-              pathname === "/artists"
-                ? "text-primary font-medium text-base"
-                : "text-white/80 hover:text-primary text-base"
+              pathname === "/about"
+                ? "text-teal-500 font-medium text-base"
+                : "text-white/80 hover:text-teal-500 text-base"
             }
           >
-            Artists
+            About
           </AnimatedLink>
 
           <AnimatedLink
-            href="/community"
+            href="/services"
             underlineStyle="slide"
             className={
-              pathname === "/community"
-                ? "text-primary font-medium text-base"
-                : "text-white/80 hover:text-primary text-base"
+              pathname === "/services"
+                ? "text-teal-500 font-medium text-base"
+                : "text-white/80 hover:text-teal-500 text-base"
             }
           >
-            Community
+            Services
           </AnimatedLink>
-          */}
 
           <AnimatedLink
-            href="/booking"
+            href="/contact"
             underlineStyle="slide"
             className={
-              pathname === "/booking"
-                ? "text-primary font-medium text-base"
-                : "text-white/80 hover:text-primary text-base"
+              pathname === "/contact"
+                ? "text-teal-500 font-medium text-base"
+                : "text-white/80 hover:text-teal-500 text-base"
             }
           >
-            Booking
+            Contact
           </AnimatedLink>
 
-          <div className="relative">
-            <motion.button
-              className="text-white/80 hover:text-primary flex items-center transition-colors duration-300 text-base"
-              onClick={() => setShowAboutDropdown(!showAboutDropdown)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              About Us
-              <motion.div animate={{ rotate: showAboutDropdown ? 180 : 0 }} transition={{ duration: 0.3 }}>
-                <ChevronDown className="ml-1 h-4 w-4" />
-              </motion.div>
-            </motion.button>
-
-            <AnimatePresence>
-              {showAboutDropdown && (
-                <motion.div
-                  className="absolute right-0 mt-2 w-48 bg-black border border-gray-800 rounded-md shadow-lg py-1 z-10"
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {[
-                    { href: "/about-us", label: "About InkCircle" },
-                    { href: "/about-us/our-mission", label: "Our Mission" },
-                    { href: "/about-us/events", label: "Events" },
-                    { href: "/about-us/careers", label: "Careers" },
-                    { href: "/about-us/contact", label: "Contact" },
-                  ].map((item, index) => (
-                    <motion.div
-                      key={item.href}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.05 }}
-                    >
-                      <Link
-                        href={item.href}
-                        className="block px-4 py-2 text-sm text-white/80 hover:bg-primary/10 hover:text-primary transition-colors duration-200"
-                        onClick={() => setShowAboutDropdown(false)}
-                      >
-                        {item.label}
-                      </Link>
-                    </motion.div>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-
-          <AnimatedLink href="/login" underlineStyle="slide" className="text-white/80 hover:text-primary text-base">
+          <AnimatedLink href="/login" underlineStyle="slide" className="text-white/80 hover:text-teal-500 text-base">
             Login
           </AnimatedLink>
 
@@ -161,7 +110,7 @@ export function MainNav() {
             className="text-center"
             initiallyFilled={false}
           >
-            Register
+            Get Started
           </HoverFillButton>
         </div>
 
@@ -187,10 +136,10 @@ export function MainNav() {
           >
             <div className="px-6 py-4 space-y-4">
               {[
-                { href: "/home", label: "Home" },
-                // { href: "/artists", label: "Artists" }, // Temporarily hidden
-                // { href: "/community", label: "Community" }, // Temporarily hidden
-                { href: "/booking", label: "Booking" },
+                { href: "/", label: "Home" },
+                { href: "/about", label: "About" },
+                { href: "/services", label: "Services" },
+                { href: "/contact", label: "Contact" },
               ].map((item, index) => (
                 <motion.div
                   key={item.href}
@@ -200,76 +149,29 @@ export function MainNav() {
                 >
                   <Link
                     href={item.href}
-                    className={`block py-2 ${pathname === item.href ? "text-primary font-medium" : "text-white/80 hover:text-primary"}`}
+                    className={`block py-2 ${pathname === item.href ? "text-teal-500 font-medium" : "text-white/80 hover:text-teal-500"}`}
                   >
                     {item.label}
                   </Link>
                 </motion.div>
               ))}
 
-              <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }}>
-                <button
-                  className="flex items-center justify-between w-full py-2 text-white/80 hover:text-primary"
-                  onClick={() => setShowAboutDropdown(!showAboutDropdown)}
+              <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.5 }}>
+                <Link
+                  href="/login"
+                  className="block py-2 text-white/80 hover:text-teal-500"
                 >
-                  <span>About Us</span>
-                  <ChevronDown
-                    className={`h-4 w-4 transition-transform duration-300 ${showAboutDropdown ? "rotate-180" : ""}`}
-                  />
-                </button>
-
-                <AnimatePresence>
-                  {showAboutDropdown && (
-                    <motion.div
-                      className="pl-4 space-y-2 mt-2 border-l border-gray-800"
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      {[
-                        { href: "/about-us", label: "About InkCircle" },
-                        { href: "/about-us/our-mission", label: "Our Mission" },
-                        { href: "/about-us/events", label: "Events" },
-                        { href: "/about-us/careers", label: "Careers" },
-                        { href: "/about-us/contact", label: "Contact" },
-                      ].map((item, index) => (
-                        <motion.div
-                          key={item.href}
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: index * 0.05 }}
-                        >
-                          <Link href={item.href} className="block py-2 text-sm text-white/80 hover:text-primary">
-                            {item.label}
-                          </Link>
-                        </motion.div>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-
-              <motion.div
-                className="pt-4 flex flex-col space-y-3 border-t border-gray-800"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5 }}
-              >
-                <Link href="/login" className="block py-2 text-white/80 hover:text-primary">
                   Login
                 </Link>
+              </motion.div>
 
-                <HoverFillButton
+              <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.6 }}>
+                <Link
                   href="/register"
-                  variant="primary"
-                  size="sm"
-                  fillDirection="vertical"
-                  className="text-center py-2"
-                  initiallyFilled={false}
+                  className="block py-2 bg-teal-500 text-white rounded-lg text-center hover:bg-teal-600 transition-colors"
                 >
-                  Register
-                </HoverFillButton>
+                  Get Started
+                </Link>
               </motion.div>
             </div>
           </motion.div>

@@ -10,14 +10,14 @@ import { SelectEnhancer } from "@/components/ui/select-enhancer"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "InkCircle - Tattoo Artist Platform",
-  description: "Connect with tattoo artists, book appointments, and showcase your work",
-  keywords: "tattoo, artist, booking, appointment, ink, studio",
-  authors: [{ name: "InkCircle Team" }],
+  title: "Next.js Template - Modern Web Application",
+  description: "A modern, responsive web application built with Next.js",
+  keywords: "nextjs, react, typescript, web application, template",
+  authors: [{ name: "Your Team" }],
   robots: "index, follow",
   openGraph: {
-    title: "InkCircle - Tattoo Artist Platform",
-    description: "Connect with tattoo artists, book appointments, and showcase your work",
+    title: "Next.js Template - Modern Web Application",
+    description: "A modern, responsive web application built with Next.js",
     type: "website",
   },
 }
