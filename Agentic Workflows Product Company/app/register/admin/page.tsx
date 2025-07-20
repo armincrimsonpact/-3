@@ -87,14 +87,8 @@ export default function AdminRegisterPage() {
         throw new Error(data.error || "Registration failed")
       }
 
-      // Check if email verification is required
-      if (data.emailVerificationRequired) {
-        // Redirect to verification page
-        router.push("/verify-email")
-      } else {
-        // If no verification needed, redirect to login
-        router.push("/login/admin?registered=true")
-      }
+      // Show success message and redirect to login
+      router.push("/login/admin?registered=true")
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred")
       setIsLoading(false)
@@ -224,9 +218,7 @@ export default function AdminRegisterPage() {
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
               </div>
-              <p className="text-xs text-gray-500 mt-1">
-                Admin passwords require: 12+ characters, uppercase, lowercase, number, and special character (!@#$%^&*)
-              </p>
+              <p className="mt-1 text-xs text-gray-500">Must be at least 12 characters with mixed case, numbers, and symbols</p>
             </div>
 
             <div>
@@ -261,15 +253,15 @@ export default function AdminRegisterPage() {
                 type="checkbox"
                 checked={formData.agreeToTerms}
                 onChange={handleChange}
-                className="h-4 w-4 bg-bg border-textTertiary/30 rounded checkbox-admin mt-0.5"
+                className="h-4 w-4 bg-black border-gray-700 rounded focus:ring-red-500 mt-0.5"
               />
               <label htmlFor="agreeToTerms" className="ml-2 block text-sm text-gray-400">
                 I agree to the{" "}
-                <Link href="/terms" className="text-red-500 hover:text-red-400 transition-colors">
+                <Link href="/terms" className="text-red-500 hover:text-red-400">
                   Terms and Conditions
-                </Link>{" "}
-                and{" "}
-                <Link href="/privacy" className="text-red-500 hover:text-red-400 transition-colors">
+                </Link>
+                ,{" "}
+                <Link href="/privacy" className="text-red-500 hover:text-red-400">
                   Privacy Policy
                 </Link>
                 , and{" "}
@@ -282,17 +274,16 @@ export default function AdminRegisterPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full text-lg px-8 py-3 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-medium rounded-lg border-2 border-red-500 hover:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:ring-offset-2 focus:ring-offset-cardBg disabled:opacity-70 transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 relative overflow-hidden group"
+              className="w-full py-3 px-4 bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 text-white font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-70 transition-colors"
             >
-              <span className="relative z-10">{isLoading ? "Creating account..." : "Create account"}</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-red-600 to-red-700 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
+              {isLoading ? "Creating admin account..." : "Create admin account"}
             </button>
           </form>
 
           <div className="mt-8 text-center">
             <p className="text-gray-400">
               Already have admin access?{" "}
-              <Link href="/login/admin" className="text-red-500 hover:text-red-400 transition-colors">
+              <Link href="/login/admin" className="text-red-500 hover:text-red-400">
                 Sign in
               </Link>
             </p>

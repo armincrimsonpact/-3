@@ -17,9 +17,13 @@ if (typeof setInterval !== 'undefined') {
 }
 
 export async function middleware(request: NextRequest) {
-  const response = NextResponse.next()
-  
-  // Create a Supabase client configured to use cookies
+  let response = NextResponse.next({
+    request: {
+      headers: request.headers,
+    },
+  })
+
+  // Create Supabase client
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -34,6 +38,11 @@ export async function middleware(request: NextRequest) {
             value,
             ...options,
           })
+          response = NextResponse.next({
+            request: {
+              headers: request.headers,
+            },
+          })
           response.cookies.set({
             name,
             value,
@@ -46,6 +55,11 @@ export async function middleware(request: NextRequest) {
             value: '',
             ...options,
           })
+          response = NextResponse.next({
+            request: {
+              headers: request.headers,
+            },
+          })
           response.cookies.set({
             name,
             value: '',
@@ -56,106 +70,106 @@ export async function middleware(request: NextRequest) {
     }
   )
 
-  // Get current user
-  const { data: { user }, error } = await supabase.auth.getUser()
+  // Refresh session if expired
+  await supabase.auth.getUser()
+  
+  // Security headers (additional to next.config.js)
+  response.headers.set('X-DNS-Prefetch-Control', 'on')
+  response.headers.set('X-Frame-Options', 'SAMEORIGIN')
+  response.headers.set('X-Content-Type-Options', 'nosniff')
+  
+  // Basic rate limiting
+  const ip = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown'
+  const windowMs = 15 * 60 * 1000 // 15 minutes
+  const maxRequests = 100
+  
+  const now = Date.now()
+  const userRateLimit = rateLimitMap.get(ip) || { count: 0, resetTime: now + windowMs }
+  
+  if (userRateLimit.resetTime < now) {
+    userRateLimit.count = 0
+    userRateLimit.resetTime = now + windowMs
+  }
+  
+  userRateLimit.count++
+  rateLimitMap.set(ip, userRateLimit)
+  
+  if (userRateLimit.count > maxRequests) {
+    return new NextResponse('Too Many Requests', { status: 429 })
+  }
+  
+  // Redirect protection
+  const url = request.nextUrl
+  const redirectParam = url.searchParams.get('redirect')
+  
+  if (redirectParam) {
+    try {
+      const redirectUrl = new URL(redirectParam, request.url)
+      // Only allow redirects to same origin
+      if (redirectUrl.origin !== url.origin) {
+        url.searchParams.delete('redirect')
+        return NextResponse.redirect(url)
+      }
+    } catch {
+      // Invalid URL, remove the parameter
+      url.searchParams.delete('redirect')
+      return NextResponse.redirect(url)
+    }
+  }
+  
+  // CSRF Protection for mutations
+  if (['POST', 'PUT', 'DELETE', 'PATCH'].includes(request.method)) {
+    const contentType = request.headers.get('content-type')
+    const origin = request.headers.get('origin')
+    const host = request.headers.get('host')
+    
+    // Check origin header for CSRF protection
+    if (origin && host) {
+      const expectedOrigin = `${request.nextUrl.protocol}//${host}`
+      if (origin !== expectedOrigin) {
+        return new NextResponse('Forbidden', { status: 403 })
+      }
+    }
 
+    // Additional CSRF token validation for form submissions
+    if (contentType?.includes('application/x-www-form-urlencoded') || 
+        contentType?.includes('multipart/form-data')) {
+      const csrfToken = request.headers.get('X-CSRF-Token')
+      if (!csrfToken) {
+        return new NextResponse('CSRF token missing', { status: 403 })
+      }
+    }
+  }
+
+  // Protected routes
+  const protectedPaths = ['/dashboard', '/profile', '/settings', '/messages', '/schedule']
+  const authPaths = ['/login', '/register', '/forgot-password']
   const pathname = request.nextUrl.pathname
 
-  // Public routes that don't require authentication
-  const publicRoutes = [
-    '/',
-    '/login',
-    '/register',
-    '/login/client',
-    '/login/artist',
-    '/login/studio',
-    '/login/admin',
-    '/register/client',
-    '/register/artist',
-    '/register/studio',
-    '/register/admin',
-    '/forgot-password',
-    '/about-us',
-    '/pricing',
-    '/faq',
-    '/terms',
-    '/privacy',
-    '/artists',
-    '/blog',
-    '/api/auth/login',
-    '/api/auth/register',
-    '/api/auth/register/admin',
-    '/api/csrf',
-    '/impressum',
-    '/datenschutz',
-    '/widerrufsbelehrung'
-  ]
+  // Check if the path is protected
+  const isProtectedPath = protectedPaths.some(path => pathname.startsWith(path))
+  const isAuthPath = authPaths.some(path => pathname.startsWith(path))
 
-  // Check if current route is public
-  const isPublicRoute = publicRoutes.some(route => 
-    pathname === route || pathname.startsWith(route + '/')
-  )
-
-  // If user is not authenticated and trying to access protected route
-  if (!user && !isPublicRoute) {
-    return NextResponse.redirect(new URL('/login', request.url))
-  }
-
-  // If user is authenticated and trying to access auth pages, redirect to appropriate dashboard
-  if (user && (pathname.startsWith('/login') || pathname.startsWith('/register'))) {
-    // Get user profile to determine role
-    try {
-      const { data: profile } = await supabase
-        .from('UserProfile')
-        .select('role')
-        .eq('authId', user.id)
-        .single()
-
-      if (profile?.role) {
-        const dashboardRoutes = {
-          'CLIENT': '/dashboard/client',
-          'ARTIST': '/dashboard/artist',
-          'STUDIO': '/dashboard/studio',
-          'ADMIN': '/dashboard/admin'
-        }
-        
-        const redirectUrl = dashboardRoutes[profile.role as keyof typeof dashboardRoutes] || '/dashboard'
-        return NextResponse.redirect(new URL(redirectUrl, request.url))
-      }
-    } catch (error) {
-      console.error('Error fetching user profile:', error)
+  if (isProtectedPath) {
+    const { data: { user } } = await supabase.auth.getUser()
+    
+    if (!user) {
+      // Redirect to login with return URL
+      const redirectUrl = new URL('/login', request.url)
+      redirectUrl.searchParams.set('redirect', pathname)
+      return NextResponse.redirect(redirectUrl)
     }
   }
 
-  // If user is authenticated and accessing dashboard, ensure they're on the correct dashboard
-  if (user && pathname.startsWith('/dashboard/')) {
-    try {
-      const { data: profile } = await supabase
-        .from('UserProfile')
-        .select('role')
-        .eq('authId', user.id)
-        .single()
-
-      if (profile?.role) {
-        const roleRoutes = {
-          'CLIENT': '/dashboard/client',
-          'ARTIST': '/dashboard/artist',
-          'STUDIO': '/dashboard/studio',
-          'ADMIN': '/dashboard/admin'
-        }
-        
-        const expectedRoute = roleRoutes[profile.role as keyof typeof roleRoutes]
-        
-        // If user is trying to access wrong dashboard, redirect to correct one
-        if (expectedRoute && !pathname.startsWith(expectedRoute)) {
-          return NextResponse.redirect(new URL(expectedRoute, request.url))
-        }
-      }
-    } catch (error) {
-      console.error('Error checking dashboard access:', error)
+  if (isAuthPath) {
+    const { data: { user } } = await supabase.auth.getUser()
+    
+    if (user) {
+      // Already logged in, redirect to dashboard
+      return NextResponse.redirect(new URL('/dashboard', request.url))
     }
   }
-
+  
   return response
 }
 
@@ -168,6 +182,6 @@ export const config = {
      * - favicon.ico (favicon file)
      * - public folder
      */
-    '/((?!_next/static|_next/image|favicon.ico|public).*)',
+    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],
 }

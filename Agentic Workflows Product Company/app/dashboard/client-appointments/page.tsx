@@ -77,7 +77,14 @@ export default function ClientAppointments() {
 
   return (
     <div className="min-h-screen bg-black">
-      {/* Animated background - removed for pure black background */}
+      {/* Animated background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -left-40 w-80 h-80 bg-teal-500/5 rounded-full blur-3xl animate-float" />
+        <div
+          className="absolute -bottom-40 -right-40 w-80 h-80 bg-teal-500/3 rounded-full blur-3xl animate-float"
+          style={{ animationDelay: "2s" }}
+        />
+      </div>
 
       <div className="relative z-10 p-8">
         {/* Header */}

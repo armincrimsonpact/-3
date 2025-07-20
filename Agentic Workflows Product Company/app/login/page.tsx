@@ -64,21 +64,25 @@ export default function LoginPage({ searchParams }: PageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center p-6">
-      {/* Background effects - removed for pure black background */}
+    <div className="min-h-screen bg-bg flex items-center justify-center p-4">
+      {/* Background effects */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -left-40 w-80 h-80 bg-primary/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute -bottom-40 -right-40 w-80 h-80 bg-ultra/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+      </div>
 
-      <div className="relative z-10 w-full max-w-6xl mx-auto">
+      <div className="relative z-10 w-full max-w-6xl">
         <ScrollReveal>
-          <div className="text-center mb-16">
+          <div className="text-center mb-12">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-teal-500 to-teal-300 bg-clip-text text-transparent mb-6">
+              <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-primary to-ultra bg-clip-text text-transparent mb-4">
                 Welcome Back
               </h1>
-              <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+              <p className="text-xl text-textTertiary max-w-2xl mx-auto">
                 Sign in to your account to access your dashboard and manage your tattoo journey
               </p>
             </motion.div>
@@ -86,7 +90,7 @@ export default function LoginPage({ searchParams }: PageProps) {
         </ScrollReveal>
 
         <ScrollReveal delay={0.2}>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {userTypes.map((userType, index) => {
               const Icon = userType.icon
               return (
@@ -99,27 +103,17 @@ export default function LoginPage({ searchParams }: PageProps) {
                   whileTap={{ scale: 0.95 }}
                 >
                   <Card 
-                    className={`relative overflow-hidden bg-gray-900 border-gray-700/30 transition-all duration-300 cursor-pointer group h-full ${
-                      userType.id === 'client' ? 'hover:bg-blue-500/20 hover:border-blue-500/50' :
-                      userType.id === 'artist' ? 'hover:bg-purple-500/20 hover:border-purple-500/50' :
-                      userType.id === 'studio' ? 'hover:bg-teal-500/20 hover:border-teal-500/50' :
-                      'hover:bg-red-500/20 hover:border-red-500/50'
-                    }`}
+                    className={`relative overflow-hidden bg-cardBg border-textTertiary/30 hover:border-primary/50 transition-all duration-300 cursor-pointer group`}
                     onClick={() => handleUserTypeSelect(userType.route)}
                   >
-                    <CardHeader className="pb-6 text-center py-8">
-                      <div className={`w-16 h-16 rounded-lg ${userType.color} flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300`}>
-                        <Icon className={`w-8 h-8 ${userType.textColor}`} />
+                    <CardHeader className="pb-4">
+                      <div className={`w-12 h-12 rounded-lg ${userType.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                        <Icon className={`w-6 h-6 ${userType.textColor}`} />
                       </div>
-                      <CardTitle className={`text-xl text-white transition-colors mb-3 ${
-                        userType.id === 'client' ? 'group-hover:text-blue-500' :
-                        userType.id === 'artist' ? 'group-hover:text-purple-500' :
-                        userType.id === 'studio' ? 'group-hover:text-teal-500' :
-                        'group-hover:text-red-500'
-                      }`}>
+                      <CardTitle className="text-xl text-textSecondary group-hover:text-primary transition-colors">
                         {userType.title}
                       </CardTitle>
-                      <p className="text-gray-400 group-hover:text-gray-300 transition-colors text-sm">
+                      <p className="text-textTertiary group-hover:text-textSecondary transition-colors">
                         {userType.description}
                       </p>
                     </CardHeader>
@@ -131,14 +125,14 @@ export default function LoginPage({ searchParams }: PageProps) {
         </ScrollReveal>
 
         <ScrollReveal delay={0.4}>
-          <div className="text-center">
-            <p className="text-gray-400 mb-4 text-lg">
+          <div className="mt-12 text-center">
+            <p className="text-textTertiary mb-4">
               Don't have an account?{" "}
-              <Link href="/register" className="text-teal-500 hover:text-teal-400 transition-colors">
+              <Link href="/register" className="text-primary hover:text-primary/80 transition-colors">
                 Sign up
               </Link>
             </p>
-            <Link href="/home" className="text-gray-500 hover:text-gray-400 transition-colors">
+            <Link href="/home" className="text-textTertiary hover:text-textSecondary transition-colors">
               ← Back to Home
             </Link>
           </div>

@@ -17,7 +17,11 @@ export default function ArtistRegistrationPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-bg">
-      {/* Background effects removed for pure black background */}
+      {/* Background effects */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-primary/5 blur-3xl" />
+        <div className="absolute bottom-1/3 right-1/3 w-24 h-24 rounded-full bg-ultra/5 blur-2xl" />
+      </div>
 
       {/* Header */}
       <header className="relative z-10 bg-bg py-4 px-6">
